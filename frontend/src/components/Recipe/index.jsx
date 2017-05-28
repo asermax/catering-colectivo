@@ -21,14 +21,20 @@ const Recipe = (props) => (
       </VerticalCenteredContent>
       <nav className="level">
         <div className="level-left">
-          <a className="level-item">
+          <a
+            className="level-item"
+            onClick={props.onEdit}
+          >
             <span className="icon is-small">
               <i className="fa fa-pencil" />
             </span>
           </a>
         </div>
         <div className="level-right" >
-          <a className="level-item">
+          <a
+            className="level-item"
+            onClick={props.onDelete}
+          >
             <span className="icon is-small">
               <i className="fa fa-trash" />
             </span>
@@ -45,6 +51,8 @@ Recipe.propTypes = {
   quantity: PropTypes.number.isRequired,
   unit: PropTypes.string.isRequired,
   proportion: PropTypes.number.isRequired,
+  onEdit: PropTypes.func,
+  onDelete: PropTypes.func,
 }
 
 export default Recipe
