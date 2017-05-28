@@ -1,0 +1,13 @@
+@import '~bulma/sass/utilities/variables';
+
+.recipe-add {
+  height: 100%;
+  border: thin dashed rgba($black, 0.3);
+  opacity: 0.7;
+  box-shadow: unset;
+}
+
+.recipe-add-content {
+  height: 100%;
+}
+

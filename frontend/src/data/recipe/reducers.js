@@ -1,4 +1,4 @@
-import { RECIPE_FETCH_SUCCESS } from './actions'
+import { RECIPE_FETCH_SUCCESS, RECIPE_CREATE_SUCCESS } from './actions'
 
 const defaultState = {
   list: [],
@@ -9,7 +9,19 @@ const recipesReducer = (state = defaultState, action) => {
     case RECIPE_FETCH_SUCCESS:
       return {
         ...state,
-        list: action.recipes,
+        list: [
+          ...action.recipes,
+        ],
+      }
+    case RECIPE_CREATE_SUCCESS:
+      return {
+        ...state,
+        list: [
+          {
+            ...action.recipe,
+          },
+          ...state.list,
+        ],
       }
     default:
       return state

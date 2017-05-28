@@ -1,6 +1,9 @@
 import { call, put, takeLatest } from 'redux-saga/effects'
 import api from 'data/api'
-import { receiveRecipes, failReceiveRecipes, RECIPE_FETCH_REQUEST } from './actions'
+import {
+  receiveRecipes, failReceiveRecipes, RECIPE_FETCH_REQUEST,
+  receiveRecipe, failReceiveRecipe, RECIPE_CREATE_REQUEST,
+} from './actions'
 
 const RECIPE_ENTRYPOINT = 'recipe'
 
@@ -13,9 +16,19 @@ function* fetchRecipes() {
   }
 }
 
+function* createRecipe(action) {
+  try {
+    const recipe = yield call(api.create, RECIPE_ENTRYPOINT, action.recipe)
+    yield put(receiveRecipe(recipe))
+  } catch(e) {
+    yield put(failReceiveRecipe())
+  }
+}
+
 function* recipeSaga() {
   yield [
     takeLatest(RECIPE_FETCH_REQUEST, fetchRecipes),
+    takeLatest(RECIPE_CREATE_REQUEST, createRecipe),
   ]
 }
 

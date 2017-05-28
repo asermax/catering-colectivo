@@ -15,7 +15,7 @@ const App = () => (
     </div>
     <section className="section">
       <div className="container">
-        <Route exact path='/' component={RecipeGallery} />
+        <Route path='/' component={RecipeGallery} />
       </div>
     </section>
   </main>

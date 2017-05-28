@@ -1,0 +1,9 @@
+.recipe-gallery {
+  flex-wrap: wrap;
+}
+
+.recipe-item {
+  flex-shrink: 0;
+  flex-grow: 0;
+  flex-basis: percentage(1/4);
+}
