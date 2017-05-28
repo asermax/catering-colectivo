@@ -1,21 +1,24 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import VerticalCenteredContent from 'components/VerticalCenteredContent'
 import styles from './styles.scss'
 
 const Recipe = (props) => (
-  <div className={`card ${styles.fullHeightCard}`}>
-    <div className="card-content">
+  <div className={`card ${styles.recipe}`}>
+    <div className={`card-content ${styles.recipeContent}`}>
       <h1 className="title">
         {props.ingredient}
       </h1>
       <h2 className="subtitle">
         {props.description}
       </h2>
-      <div className="notification has-text-centered">
-        {props.quantity} {props.unit}
-        <span className={styles.perKeyword}>para</span>
-        {props.proportion} personas
-      </div>
+      <VerticalCenteredContent className={styles.recipeProportion}>
+        <div className="notification has-text-centered">
+          {props.quantity} {props.unit}
+          <span className={styles.perKeyword}>para</span>
+          {props.proportion} personas
+        </div>
+      </VerticalCenteredContent>
       <nav className="level">
         <div className="level-left">
           <a className="level-item">
