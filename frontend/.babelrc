@@ -1,0 +1,28 @@
+{
+  "presets": [
+    [
+      "latest",
+      {
+        "es2015": {
+          "modules": false
+        }
+      }
+    ],
+    "react"
+  ],
+  "plugins": [
+    "react-hot-loader/babel",
+    "transform-object-rest-spread"
+  ],
+  "env": {
+    "test": {
+      "presets": [
+        "latest",
+        "react"
+      ],
+      "plugins": [
+        "transform-object-rest-spread"
+      ],
+    }
+  }
+}

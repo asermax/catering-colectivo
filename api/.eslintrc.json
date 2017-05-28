@@ -1,0 +1,18 @@
+{
+    "parserOptions": {
+        "ecmaVersion": 8,
+        "sourceType": "module"
+    },
+    "extends": ["eslint:recommended"],
+    "rules": {
+        "semi": ["error", "never"],
+        "no-trailing-spaces": "error",
+        "no-unused-vars": "error",
+        "space-before-function-paren": ["error", "never"],
+        "object-shorthand": "error",
+        "object-curly-spacing": ["error", "always"],
+        "array-bracket-spacing": ["error", "always"],
+        "curly": "error",
+        "comma-dangle": ["error", "always-multiline"]
+    }
+}

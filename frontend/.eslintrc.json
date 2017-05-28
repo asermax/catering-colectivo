@@ -1,0 +1,34 @@
+{
+    "parserOptions": {
+        "ecmaVersion": 8,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true,
+            "experimentalObjectRestSpread": true
+        }
+    },
+    "extends": [
+      "eslint:recommended",
+      "plugin:react/recommended",
+      "plugin:jest/recommended"
+    ],
+    "plugins": [
+      "react",
+      "jest"
+    ],
+    "env": {
+      "jest/globals": true,
+      "browser": true
+    },
+    "rules": {
+        "semi": ["error", "never"],
+        "no-trailing-spaces": "error",
+        "space-before-function-paren": ["error", "never"],
+        "object-shorthand": "error",
+        "object-curly-spacing": ["error", "always"],
+        "array-bracket-spacing": ["error", "always"],
+        "curly": "error",
+        "comma-dangle": ["error", "always-multiline"],
+        "max-len": ["error", 100]
+    }
+}
