@@ -25,7 +25,7 @@ const Recipe = (props) => (
           <ContentEditable
             tagName="span"
             html={coalesce(props.quantity, 'Cantidad')}
-            onChange={(event) => props.onChange({ quantity: event.target.value })}
+            onChange={(event) => props.onChange({ quantity: parseInt(event.target.value) })}
           />&nbsp;
           <ContentEditable
             tagName="span"
@@ -36,7 +36,7 @@ const Recipe = (props) => (
           <ContentEditable
             tagName="span"
             html={coalesce(props.proportion, 'Proporción')}
-            onChange={(event) => props.onChange({ proportion: event.target.value })}
+            onChange={(event) => props.onChange({ proportion: parseInt(event.target.value) })}
           />&nbsp;
           personas
         </div>

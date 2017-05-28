@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { Route } from 'react-router-dom'
 import { push } from 'react-router-redux'
 import { getRecipes } from 'data/recipe/selectors'
-import { fetchRecipes } from 'data/recipe/actions'
+import { fetchRecipes, deleteRecipe } from 'data/recipe/actions'
 import Recipe from 'components/Recipe'
 import RecipeAdd from './RecipeAdd'
 import styles from './styles.scss'
@@ -41,6 +41,7 @@ class RecipeGallery extends Component {
                 quantity={recipe.quantity}
                 unit={recipe.unit}
                 proportion={recipe.proportion}
+                onDelete={() => this.props.deleteRecipe(recipe._id)}
               />
             </div>
           )
@@ -53,6 +54,7 @@ class RecipeGallery extends Component {
 RecipeGallery.propTypes = {
   recipes: PropTypes.arrayOf(PropTypes.object).isRequired,
   fetchRecipes: PropTypes.func.isRequired,
+  deleteRecipe: PropTypes.func.isRequired,
   goAddShow: PropTypes.func.isRequired,
   backAddShow: PropTypes.func.isRequired,
 }
@@ -63,6 +65,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   fetchRecipes: () => dispatch(fetchRecipes()),
+  deleteRecipe: (id) => dispatch(deleteRecipe(id)),
   goAddShow: () => dispatch(push('/add')),
   backAddShow: () => dispatch(push('/')),
 })

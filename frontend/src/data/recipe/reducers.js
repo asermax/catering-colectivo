@@ -1,4 +1,4 @@
-import { RECIPE_FETCH_SUCCESS, RECIPE_CREATE_SUCCESS } from './actions'
+import { RECIPE_FETCH_SUCCESS, RECIPE_CREATE_SUCCESS, RECIPE_DELETE_SUCCESS } from './actions'
 
 const defaultState = {
   list: [],
@@ -22,6 +22,11 @@ const recipesReducer = (state = defaultState, action) => {
           },
           ...state.list,
         ],
+      }
+    case RECIPE_DELETE_SUCCESS:
+      return {
+        ...state,
+        list: state.list.filter((recipe) => recipe._id !== action.id),
       }
     default:
       return state
