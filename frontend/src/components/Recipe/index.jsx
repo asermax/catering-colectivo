@@ -1,19 +1,20 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styles from './styles.scss'
 
-const Recipe = () => (
+const Recipe = (props) => (
   <div className={`card ${styles.fullHeightCard}`}>
     <div className="card-content">
       <h1 className="title">
-        Ingrediente
+        {props.ingredient}
       </h1>
       <h2 className="subtitle">
-        Descripción del ingrediente
+        {props.description}
       </h2>
       <div className="notification has-text-centered">
-        Cantidad
-        <span className={styles.perKeyword}>por</span>
-        Proporción personas
+        {props.quantity} {props.unit}
+        <span className={styles.perKeyword}>para</span>
+        {props.proportion} personas
       </div>
       <nav className="level">
         <div className="level-left">
@@ -34,5 +35,13 @@ const Recipe = () => (
     </div>
   </div>
 )
+
+Recipe.propTypes = {
+  ingredient: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  quantity: PropTypes.number.isRequired,
+  unit: PropTypes.string.isRequired,
+  proportion: PropTypes.number.isRequired,
+}
 
 export default Recipe
