@@ -12,9 +12,9 @@ class RecipeAdd extends Component {
     this.state = {
       ingredient: null,
       description: null,
-      quantity: null,
-      unit: null,
-      proportion: null,
+      quantity: 1,
+      unit: 'unidad',
+      proportion: 1,
     }
   }
 
@@ -22,9 +22,9 @@ class RecipeAdd extends Component {
     this.setState({
       ingredient: null,
       description: null,
-      quantity: null,
-      unit: null,
-      proportion: null,
+      quantity: 1,
+      unit: 'unidad',
+      proportion: 1,
     })
   }
 
