@@ -1,42 +1,67 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ContentEditable from 'react-contenteditable'
-import { coalesce } from 'utils'
+import { coalesce, validations } from 'utils'
 import VerticalCenteredContent from 'components/VerticalCenteredContent'
-import styles from '../Recipe/styles.scss'
+import baseStyles from '../Recipe/styles.scss'
+import styles from './styles.scss'
+
+const selectAll = (node) => {
+  const range = document.createRange()
+  range.selectNodeContents(node)
+  const selection = window.getSelection()
+  selection.removeAllRanges()
+  selection.addRange(range)
+}
 
 const Recipe = (props) => (
-  <div className={`card ${styles.recipe}`}>
-    <div className={`card-content ${styles.recipeContent}`}>
+  <div className={`card ${baseStyles.recipe}`}>
+    <div className={`card-content ${baseStyles.recipeContent}`}>
       <h1 className="title">
         <ContentEditable
-          html={coalesce(props.ingredient, 'Ingrediente')}
+          className={styles.contentEditable}
+          placeholder="Ingrediente"
+          html={coalesce(props.ingredient, '')}
           onChange={(event) => props.onChange({ ingredient: event.target.value })}
+          onFocus={(event) => selectAll(event.target)}
         />
       </h1>
       <h2 className="subtitle">
         <ContentEditable
-          html={coalesce(props.description, 'Descripción')}
+          className={styles.contentEditable}
+          placeholder="descripción"
+          html={coalesce(props.description, '')}
           onChange={(event) => props.onChange({ description: event.target.value })}
+          onFocus={(event) => selectAll(event.target)}
         />
       </h2>
-      <VerticalCenteredContent className={styles.recipeProportion}>
+      <VerticalCenteredContent className={baseStyles.recipeProportion}>
         <div className="notification has-text-centered">
           <ContentEditable
             tagName="span"
-            html={coalesce(props.quantity, 'Cantidad')}
-            onChange={(event) => props.onChange({ quantity: parseInt(event.target.value) })}
+            className={styles.contentEditable}
+            html={coalesce(props.quantity, '').toString()}
+            onChange={(event) => (
+              validations.int((value) => props.onChange({ quantity: value }))(event.target.value)
+            )}
+            onFocus={(event) => selectAll(event.target)}
           />&nbsp;
           <ContentEditable
             tagName="span"
-            html={coalesce(props.unit, 'Unidad')}
+            className={styles.contentEditable}
+            html={coalesce(props.unit, '')}
             onChange={(event) => props.onChange({ unit: event.target.value })}
+            onFocus={(event) => selectAll(event.target)}
           />
-          <span className={styles.perKeyword}>para</span>
+          <span className={baseStyles.perKeyword}>para</span>
           <ContentEditable
             tagName="span"
-            html={coalesce(props.proportion, 'Proporción')}
-            onChange={(event) => props.onChange({ proportion: parseInt(event.target.value) })}
+            className={styles.contentEditable}
+            html={coalesce(props.proportion, '').toString()}
+            onChange={(event) => (
+              validations.int((value) => props.onChange({ proportion: value }))(event.target.value)
+            )}
+            onFocus={(event) => selectAll(event.target)}
           />&nbsp;
           personas
         </div>

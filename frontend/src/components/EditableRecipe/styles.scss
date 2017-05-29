@@ -1,0 +1,10 @@
+.content-editable {
+  &:focus {
+    outline: none;
+  }
+
+  &:empty:before {
+    content: attr(placeholder);
+    opacity: 0.6;
+  }
+}
