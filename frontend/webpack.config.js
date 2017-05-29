@@ -10,6 +10,7 @@ module.exports = function() {
         'react-hot-loader/patch',
         'bulma/bulma.sass',
         'font-awesome/scss/font-awesome.scss',
+        './src/patches/react-contenteditable-patch.js',
         './src/index.jsx',
       ],
     },
