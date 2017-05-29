@@ -4,6 +4,9 @@ export const RECIPE_FETCH_FAILURE = 'RECIPE_FETCH_FAILURE'
 export const RECIPE_CREATE_REQUEST = 'RECIPE_CREATE_REQUEST'
 export const RECIPE_CREATE_SUCCESS = 'RECIPE_CREATE_SUCCESS'
 export const RECIPE_CREATE_FAILURE = 'RECIPE_CREATE_FAILURE'
+export const RECIPE_EDIT_REQUEST = 'RECIPE_EDIT_REQUEST'
+export const RECIPE_EDIT_SUCCESS = 'RECIPE_EDIT_SUCCESS'
+export const RECIPE_EDIT_FAILURE = 'RECIPE_EDIT_FAILURE'
 export const RECIPE_DELETE_REQUEST = 'RECIPE_DELETE_REQUEST'
 export const RECIPE_DELETE_SUCCESS = 'RECIPE_DELETE_SUCCESS'
 export const RECIPE_DELETE_FAILURE = 'RECIPE_DELETE_FAILURE'
@@ -47,4 +50,20 @@ export const removeRecipe = (id) => ({
 
 export const failRemoveRecipe = () => ({
   type: RECIPE_DELETE_FAILURE,
+})
+
+export const editRecipe = (id, recipe) => ({
+  type: RECIPE_EDIT_REQUEST,
+  id,
+  recipe,
+})
+
+export const updateRecipe = (id, recipe) => ({
+  type: RECIPE_EDIT_SUCCESS,
+  id,
+  recipe,
+})
+
+export const failUpdateRecipe = () => ({
+  type: RECIPE_EDIT_FAILURE,
 })

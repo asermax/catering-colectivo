@@ -7,11 +7,47 @@ import { getRecipes } from 'data/recipe/selectors'
 import { fetchRecipes, deleteRecipe } from 'data/recipe/actions'
 import Recipe from 'components/Recipe'
 import RecipeAdd from './RecipeAdd'
+import RecipeEdit from './RecipeEdit'
 import styles from './styles.scss'
 
 class RecipeGallery extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      editing: null,
+    }
+  }
+
   componentDidMount() {
     this.props.fetchRecipes()
+  }
+
+  handleEdit(id) {
+    this.setState({ editing: id })
+    this.props.goEditRecipe(id)
+  }
+
+  renderRecipe(recipe, match) {
+    if (match != null) {
+      return (
+        <RecipeEdit
+          recipeId={recipe._id}
+          onFinish={this.props.backEditRecipe}
+        />
+      )
+    } else {
+      return (
+        <Recipe
+          ingredient={recipe.ingredient}
+          description={recipe.description}
+          quantity={recipe.quantity}
+          unit={recipe.unit}
+          proportion={recipe.proportion}
+          onDelete={() => this.props.deleteRecipe(recipe._id)}
+          onEdit={() => this.handleEdit(recipe._id)}
+        />
+      )
+    }
   }
 
   render() {
@@ -23,8 +59,8 @@ class RecipeGallery extends Component {
             children={({ match }) => (
               <RecipeAdd
                 enabled={match != null}
-                onEnable={this.props.goAddShow}
-                onDisable={this.props.backAddShow}
+                onEnable={this.props.goAddRecipe}
+                onDisable={this.props.backAddRecipe}
               />
             )}
           />
@@ -35,13 +71,9 @@ class RecipeGallery extends Component {
               className={`column ${styles.recipeItem}`}
               key={recipe._id}
             >
-              <Recipe
-                ingredient={recipe.ingredient}
-                description={recipe.description}
-                quantity={recipe.quantity}
-                unit={recipe.unit}
-                proportion={recipe.proportion}
-                onDelete={() => this.props.deleteRecipe(recipe._id)}
+              <Route
+                path={`/edit/${recipe._id}`}
+                children={({ match }) => this.renderRecipe(recipe, match)}
               />
             </div>
           )
@@ -55,8 +87,10 @@ RecipeGallery.propTypes = {
   recipes: PropTypes.arrayOf(PropTypes.object).isRequired,
   fetchRecipes: PropTypes.func.isRequired,
   deleteRecipe: PropTypes.func.isRequired,
-  goAddShow: PropTypes.func.isRequired,
-  backAddShow: PropTypes.func.isRequired,
+  goAddRecipe: PropTypes.func.isRequired,
+  backAddRecipe: PropTypes.func.isRequired,
+  goEditRecipe: PropTypes.func.isRequired,
+  backEditRecipe: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state) => ({
@@ -66,8 +100,10 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   fetchRecipes: () => dispatch(fetchRecipes()),
   deleteRecipe: (id) => dispatch(deleteRecipe(id)),
-  goAddShow: () => dispatch(push('/add')),
-  backAddShow: () => dispatch(push('/')),
+  goAddRecipe: () => dispatch(push('/add')),
+  backAddRecipe: () => dispatch(push('/')),
+  goEditRecipe: (id) => dispatch(push(`/edit/${id}`)),
+  backEditRecipe: () => dispatch(push('/')),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecipeGallery)
