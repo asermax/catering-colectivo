@@ -8,6 +8,7 @@ import { fetchRecipes, deleteRecipe } from 'data/recipe/actions'
 import Recipe from 'components/Recipe'
 import RecipeAdd from './RecipeAdd'
 import RecipeEdit from './RecipeEdit'
+import routes from 'pages/routes'
 import styles from './styles.scss'
 
 class RecipeGallery extends Component {
@@ -55,7 +56,7 @@ class RecipeGallery extends Component {
       <div className={`columns ${styles.recipeGallery}`}>
         <div className={`column ${styles.recipeItem}`}>
           <Route
-            path='/add'
+            path={routes.ADD_RECIPE}
             children={({ match }) => (
               <RecipeAdd
                 enabled={match != null}
@@ -72,7 +73,7 @@ class RecipeGallery extends Component {
               key={recipe._id}
             >
               <Route
-                path={`/edit/${recipe._id}`}
+                path={routes.EDIT_RECIPE.replace(':id', recipe._id)}
                 children={({ match }) => this.renderRecipe(recipe, match)}
               />
             </div>
@@ -100,10 +101,10 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   fetchRecipes: () => dispatch(fetchRecipes()),
   deleteRecipe: (id) => dispatch(deleteRecipe(id)),
-  goAddRecipe: () => dispatch(push('/add')),
-  backAddRecipe: () => dispatch(push('/')),
-  goEditRecipe: (id) => dispatch(push(`/edit/${id}`)),
-  backEditRecipe: () => dispatch(push('/')),
+  goAddRecipe: () => dispatch(push(routes.ADD_RECIPE)),
+  backAddRecipe: () => dispatch(push(routes.RECIPE_GALLERY)),
+  goEditRecipe: (id) => dispatch(push(routes.EDIT_RECIPE.replace(':id', id))),
+  backEditRecipe: () => dispatch(push(routes.RECIPE_GALLERY)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecipeGallery)

@@ -1,5 +1,6 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
+import routes from 'pages/routes'
 import RecipeGallery from 'pages/RecipeGallery'
 
 const App = () => (
@@ -15,7 +16,7 @@ const App = () => (
     </div>
     <section className="section">
       <div className="container">
-        <Route path='/' component={RecipeGallery} />
+        <Route path={routes.RECIPE_GALLERY} component={RecipeGallery} />
       </div>
     </section>
   </main>

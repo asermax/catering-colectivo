@@ -19,7 +19,7 @@ const Recipe = (props) => (
           {props.proportion} personas
         </div>
       </VerticalCenteredContent>
-      <nav className="level">
+      <nav className={`level ${styles.actions}`}>
         <div className="level-left">
           <a
             className="level-item"

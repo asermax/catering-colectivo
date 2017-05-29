@@ -1,5 +1,11 @@
 .recipe {
   height: 100%;
+
+  &:hover {
+    .actions {
+      visibility: visible;
+    }
+  }
 }
 
 .recipe-content {
@@ -16,4 +22,8 @@
 .per-keyword {
   display: block;
   font-weight: bold;
+}
+
+.actions {
+  visibility: hidden;
 }
