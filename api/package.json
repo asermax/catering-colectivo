@@ -8,7 +8,8 @@
   "license": "MIT",
   "scripts": {
     "start": "env nodemon index.js",
-    "build": "webpack"
+    "build": "webpack",
+    "migrate": "MIGRATION_CONFIG_PATH=./migrations/config.js mongoose-migrate-2"
   },
   "dependencies": {
     "body-parser": "^1.x",
