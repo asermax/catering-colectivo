@@ -43,6 +43,7 @@
     "es6-promise": "^4.x",
     "font-awesome": "^4.x",
     "isomorphic-fetch": "^2.x",
+    "moment": "^2.18.1",
     "monkeypatch": "^1.x",
     "prop-types": "^15.x",
     "react": "^15.x",
