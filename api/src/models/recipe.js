@@ -6,6 +6,7 @@ const RecipeSchema = mongoose.Schema({
   quantity: Number,
   unit: String,
   proportion: Number,
+  creationDate: Date,
 })
 
 const Recipe = mongoose.model('Recipe', RecipeSchema)
