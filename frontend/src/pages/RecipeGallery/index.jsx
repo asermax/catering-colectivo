@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Route } from 'react-router-dom'
 import { push } from 'react-router-redux'
+import moment from 'moment'
 import { getRecipes } from 'data/recipe/selectors'
 import { fetchRecipes, deleteRecipe } from 'data/recipe/actions'
 import Recipe from 'components/Recipe'
@@ -95,7 +96,13 @@ RecipeGallery.propTypes = {
 }
 
 const mapStateToProps = (state) => ({
-  recipes: getRecipes(state),
+  recipes: getRecipes(state).slice(0).sort((a, b) => {
+    a = moment(a.creationDate)
+    b = moment(b.creationDate)
+    let result = a.isBefore(b) ? -1 : 0
+    result = result === 0 && b.isBefore(a) ? 1 : 0
+    return result
+  }),
 })
 
 const mapDispatchToProps = (dispatch) => ({
