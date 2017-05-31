@@ -24,6 +24,7 @@
     "babel-polyfill": "^6.x",
     "babel-preset-latest": "^6.x",
     "babel-register": "^6.x",
+    "mongoose-migrate-2": "^0.x",
     "nodemon": "^1.x",
     "webpack": "^2.x"
   }
