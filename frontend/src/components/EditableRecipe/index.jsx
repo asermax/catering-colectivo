@@ -67,7 +67,7 @@ const Recipe = (props) => (
             onChange={(event) => (
               validations.int(
                 (value) => props.onChange({ quantity: value })
-              )(event.target.value, 1)
+              )(event.target.value, props.quantity, 1)
             )}
             onKeyDown={(event) => handleKeyDown(event, props)}
             onKeyUp={handleKeyUp}
@@ -93,7 +93,7 @@ const Recipe = (props) => (
             onChange={(event) => (
               validations.int(
                 (value) => props.onChange({ proportion: value })
-              )(event.target.value, 1)
+              )(event.target.value, props.proportion, 1)
             )}
             onKeyDown={(event) => handleKeyDown(event, props)}
             onKeyUp={handleKeyUp}
