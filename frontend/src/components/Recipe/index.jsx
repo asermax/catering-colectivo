@@ -22,7 +22,7 @@ const Recipe = (props) => (
       <nav className={`level ${styles.actions}`}>
         <div className="level-left">
           <button
-            className="level-item button is-white is-paddingless"
+            className={`level-item button is-white is-paddingless ${styles.action}`}
             onClick={props.onEdit}
           >
             <span className="icon is-small">
@@ -32,7 +32,7 @@ const Recipe = (props) => (
         </div>
         <div className="level-right" >
           <button
-            className="level-item button is-white is-paddingless"
+            className={`level-item button is-white is-paddingless ${styles.action}`}
             onClick={props.onDelete}
           >
             <span className="icon is-small">

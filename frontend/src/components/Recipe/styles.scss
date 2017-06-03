@@ -1,3 +1,5 @@
+@import '~bulma/sass/utilities/variables';
+
 .recipe {
   height: 100%;
 
@@ -26,4 +28,18 @@
 
 .actions {
   visibility: hidden;
+}
+
+:global(.button) {
+  &.action {
+    &:active {
+      background-color: inherit;
+      box-shadow: inherit;
+    }
+
+    &:hover, &:focus {
+      background-color: inherit;
+      color: $link;
+    }
+  }
 }

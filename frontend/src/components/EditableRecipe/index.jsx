@@ -105,7 +105,7 @@ const Recipe = (props) => (
       <nav className="level">
         <div className="level-left">
           <button
-            className="level-item button is-white is-paddingless"
+            className={`level-item button is-white is-paddingless ${baseStyles.action}`}
             disabled={!isValid(props)}
             onClick={props.onSave}
           >
@@ -116,7 +116,7 @@ const Recipe = (props) => (
         </div>
         <div className="level-right" >
           <button
-            className="level-item button is-white is-paddingless"
+            className={`level-item button is-white is-paddingless ${baseStyles.action}`}
             onClick={props.onCancel}
           >
             <span className="icon is-small">
