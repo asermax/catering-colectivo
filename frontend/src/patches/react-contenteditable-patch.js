@@ -13,3 +13,14 @@ monkeypatch(ContentEditable.prototype, 'shouldComponentUpdate', function(origina
     || this.props.disabled !== nextProps.disabled
   )
 })
+
+monkeypatch(ContentEditable.prototype, 'emitChange', function(evt) {
+  if (this.htmlEl) {
+    let html = this.htmlEl.innerHTML
+
+    if (this.props.onChange && html !== this.props.html) {
+      evt.target = { value: html }
+      this.props.onChange(evt)
+    }
+  }
+})
