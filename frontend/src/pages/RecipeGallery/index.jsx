@@ -96,13 +96,9 @@ RecipeGallery.propTypes = {
 }
 
 const mapStateToProps = (state) => ({
-  recipes: getRecipes(state).slice(0).sort((a, b) => {
-    a = moment(a.creationDate)
-    b = moment(b.creationDate)
-    let result = a.isBefore(b) ? -1 : 0
-    result = result === 0 && b.isBefore(a) ? 1 : 0
-    return result
-  }),
+  recipes: getRecipes(state).slice(0).sort((a, b) => (
+    moment(b.creationDate).diff(moment(a.creationDate))
+  )),
 })
 
 const mapDispatchToProps = (dispatch) => ({
