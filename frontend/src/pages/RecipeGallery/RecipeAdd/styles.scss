@@ -6,6 +6,11 @@
   border: thin dashed rgba($black, 0.3);
   opacity: 0.7;
   box-shadow: unset;
+  transition: opacity 0.5s;
+
+  &:hover {
+    opacity: 1;
+  }
 }
 
 .recipe-add-content {
