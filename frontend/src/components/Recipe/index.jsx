@@ -21,24 +21,24 @@ const Recipe = (props) => (
       </VerticalCenteredContent>
       <nav className={`level ${styles.actions}`}>
         <div className="level-left">
-          <a
-            className="level-item"
+          <button
+            className="level-item button is-white is-paddingless"
             onClick={props.onEdit}
           >
             <span className="icon is-small">
               <i className="fa fa-pencil" />
             </span>
-          </a>
+          </button>
         </div>
         <div className="level-right" >
-          <a
-            className="level-item"
+          <button
+            className="level-item button is-white is-paddingless"
             onClick={props.onDelete}
           >
             <span className="icon is-small">
               <i className="fa fa-trash" />
             </span>
-          </a>
+          </button>
         </div>
       </nav>
     </div>
