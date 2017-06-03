@@ -13,20 +13,8 @@ import routes from 'pages/routes'
 import styles from './styles.scss'
 
 class RecipeGallery extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      editing: null,
-    }
-  }
-
   componentDidMount() {
     this.props.fetchRecipes()
-  }
-
-  handleEdit(id) {
-    this.setState({ editing: id })
-    this.props.goEditRecipe(id)
   }
 
   renderRecipe(recipe, match) {
@@ -46,7 +34,7 @@ class RecipeGallery extends Component {
           unit={recipe.unit}
           proportion={recipe.proportion}
           onDelete={() => this.props.deleteRecipe(recipe._id)}
-          onEdit={() => this.handleEdit(recipe._id)}
+          onEdit={() => this.props.goEditRecipe(recipe._id)}
         />
       )
     }
