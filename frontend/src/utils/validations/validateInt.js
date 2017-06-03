@@ -1,4 +1,4 @@
-const validateInt = (callback, defaultValue = 1) => (
+const validateInt = (callback, defaultValue = null) => (
   (value) => {
     value = parseInt(value)
 
