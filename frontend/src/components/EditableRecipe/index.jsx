@@ -6,13 +6,28 @@ import VerticalCenteredContent from 'components/VerticalCenteredContent'
 import baseStyles from '../Recipe/styles.scss'
 import styles from './styles.scss'
 
-const selectAll = (node) => {
-  const range = document.createRange()
-  range.selectNodeContents(node)
-  const selection = window.getSelection()
-  selection.removeAllRanges()
-  selection.addRange(range)
+const handleKeyDown = (event, props) => {
+  if (event.key === 'Enter') {
+    event.preventDefault()
+    props.onSave()
+  } else if (event.key === 'Escape') {
+    props.onCancel()
+  }
 }
+
+const handleKeyUp = (event) => {
+  if (event.key === 'Tab') {
+    const range = document.createRange()
+    range.selectNodeContents(event.target)
+    const selection = window.getSelection()
+    selection.removeAllRanges()
+    selection.addRange(range)
+  }
+}
+
+const handleBlur = () => window.getSelection().removeAllRanges()
+
+const isValid = (props) => Object.values(props).every((prop) => prop != null)
 
 const Recipe = (props) => (
   <div className={`card ${baseStyles.recipe}`}>
@@ -22,8 +37,12 @@ const Recipe = (props) => (
           className={styles.contentEditable}
           placeholder="Ingrediente"
           html={coalesce(props.ingredient, '')}
-          onChange={(event) => props.onChange({ ingredient: event.target.value })}
-          onFocus={(event) => selectAll(event.target)}
+          onChange={(event) => (
+            validations.str((value) => props.onChange({ ingredient: value }))(event.target.value)
+          )}
+          onKeyDown={(event) => handleKeyDown(event, props)}
+          onKeyUp={handleKeyUp}
+          onBlur={handleBlur}
         />
       </h1>
       <h2 className="subtitle">
@@ -31,8 +50,12 @@ const Recipe = (props) => (
           className={styles.contentEditable}
           placeholder="descripción"
           html={coalesce(props.description, '')}
-          onChange={(event) => props.onChange({ description: event.target.value })}
-          onFocus={(event) => selectAll(event.target)}
+          onChange={(event) => (
+            validations.str((value) => props.onChange({ description: value }))(event.target.value)
+          )}
+          onKeyDown={(event) => handleKeyDown(event, props)}
+          onKeyUp={handleKeyUp}
+          onBlur={handleBlur}
         />
       </h2>
       <VerticalCenteredContent className={baseStyles.recipeProportion}>
@@ -42,16 +65,25 @@ const Recipe = (props) => (
             className={styles.contentEditable}
             html={coalesce(props.quantity, '').toString()}
             onChange={(event) => (
-              validations.int((value) => props.onChange({ quantity: value }))(event.target.value)
+              validations.int(
+                (value) => props.onChange({ quantity: value })
+              )(event.target.value, 1)
             )}
-            onFocus={(event) => selectAll(event.target)}
+            onKeyDown={(event) => handleKeyDown(event, props)}
+            onKeyUp={handleKeyUp}
+            onBlur={handleBlur}
           />&nbsp;
           <ContentEditable
             tagName="span"
             className={styles.contentEditable}
             html={coalesce(props.unit, '')}
-            onChange={(event) => props.onChange({ unit: event.target.value })}
-            onFocus={(event) => selectAll(event.target)}
+            onChange={(event) => (
+              validations.str((value) =>
+                props.onChange({ unit: value }))(event.target.value)
+            )}
+            onKeyDown={(event) => handleKeyDown(event, props)}
+            onKeyUp={handleKeyUp}
+            onBlur={handleBlur}
           />
           <span className={baseStyles.perKeyword}>para</span>
           <ContentEditable
@@ -59,33 +91,38 @@ const Recipe = (props) => (
             className={styles.contentEditable}
             html={coalesce(props.proportion, '').toString()}
             onChange={(event) => (
-              validations.int((value) => props.onChange({ proportion: value }))(event.target.value)
+              validations.int(
+                (value) => props.onChange({ proportion: value })
+              )(event.target.value, 1)
             )}
-            onFocus={(event) => selectAll(event.target)}
+            onKeyDown={(event) => handleKeyDown(event, props)}
+            onKeyUp={handleKeyUp}
+            onBlur={handleBlur}
           />&nbsp;
           personas
         </div>
       </VerticalCenteredContent>
       <nav className="level">
         <div className="level-left">
-          <a
-            className="level-item"
+          <button
+            className="level-item button is-white is-paddingless"
+            disabled={!isValid(props)}
             onClick={props.onSave}
           >
             <span className="icon is-small">
               <i className="fa fa-check" />
             </span>
-          </a>
+          </button>
         </div>
         <div className="level-right" >
-          <a
-            className="level-item"
+          <button
+            className="level-item button is-white is-paddingless"
             onClick={props.onCancel}
           >
             <span className="icon is-small">
               <i className="fa fa-ban" />
             </span>
-          </a>
+          </button>
         </div>
       </nav>
     </div>
