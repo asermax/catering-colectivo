@@ -1,5 +1,6 @@
 export default {
-  RECIPE_GALLERY: '/',
-  ADD_RECIPE: '/add',
-  EDIT_RECIPE: '/edit/:id',
+  EVENTS_GALLERY: '/',
+  RECIPE_GALLERY: '/recipes',
+  ADD_RECIPE: '/recipes/add',
+  EDIT_RECIPE: '/recipes/edit/:id',
 }
