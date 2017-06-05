@@ -3,12 +3,13 @@ import mongoose from 'mongoose'
 const EventDetailSchema = mongoose.Schema({
   recipe: { type: mongoose.Schema.Types.ObjectId, ref: 'Recipe', required: true },
   amountPeople: { type: Number, required: true },
+  note: String,
 })
 
 const EventSchema = mongoose.Schema({
   organization: { type: String, required: true },
-  eventDescription: String,
-  eventDate: Date,
+  description: String,
+  date: Date,
   amountPeople: Number,
   creationDate: { type: Date, default: Date.now },
   details: [ EventDetailSchema ],
