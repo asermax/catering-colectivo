@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import ContentEditable from 'react-contenteditable'
 import { coalesce, validations } from 'utils'
+import Card from 'components/Card'
 import VerticalCenteredContent from 'components/VerticalCenteredContent'
 import baseStyles from '../Recipe/styles.scss'
 import styles from './styles.scss'
@@ -30,8 +31,12 @@ const handleBlur = () => window.getSelection().removeAllRanges()
 const isValid = (props) => Object.values(props).every((prop) => prop != null)
 
 const Recipe = (props) => (
-  <div className={`card ${baseStyles.recipe}`}>
-    <div className={`card-content ${baseStyles.recipeContent}`}>
+  <Card
+    hiddenActions={false}
+    leftAction={{ icon: 'check', callback: props.onSave, disabled: !isValid(props) }}
+    rightAction={{ icon: 'ban', callback: props.onCancel }}
+  >
+    <div className={baseStyles.recipeContent}>
       <h1 className="title">
         <ContentEditable
           className={styles.contentEditable}
@@ -72,7 +77,8 @@ const Recipe = (props) => (
             onKeyDown={(event) => handleKeyDown(event, props)}
             onKeyUp={handleKeyUp}
             onBlur={handleBlur}
-          />&nbsp;
+          />
+          &nbsp;
           <ContentEditable
             tagName="span"
             className={styles.contentEditable}
@@ -98,35 +104,12 @@ const Recipe = (props) => (
             onKeyDown={(event) => handleKeyDown(event, props)}
             onKeyUp={handleKeyUp}
             onBlur={handleBlur}
-          />&nbsp;
-          personas
+          />
+          &nbsp;personas
         </div>
       </VerticalCenteredContent>
-      <nav className="level">
-        <div className="level-left">
-          <button
-            className={`level-item button is-white is-paddingless ${baseStyles.action}`}
-            disabled={!isValid(props)}
-            onClick={props.onSave}
-          >
-            <span className="icon is-small">
-              <i className="fa fa-check" />
-            </span>
-          </button>
-        </div>
-        <div className="level-right" >
-          <button
-            className={`level-item button is-white is-paddingless ${baseStyles.action}`}
-            onClick={props.onCancel}
-          >
-            <span className="icon is-small">
-              <i className="fa fa-ban" />
-            </span>
-          </button>
-        </div>
-      </nav>
     </div>
-  </div>
+  </Card>
 )
 
 Recipe.propTypes = {

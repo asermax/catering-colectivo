@@ -1,11 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import Card from 'components/Card'
 import VerticalCenteredContent from 'components/VerticalCenteredContent'
 import styles from './styles.scss'
 
 const Recipe = (props) => (
-  <div className={`card ${styles.recipe}`}>
-    <div className={`card-content ${styles.recipeContent}`}>
+  <Card
+    leftAction={{ icon: 'pencil', callback: props.onEdit }}
+    rightAction={{ icon: 'trash', callback: props.onDelete }}
+  >
+    <div className={styles.recipeContent}>
       <h1 className="title">
         {props.ingredient}
       </h1>
@@ -19,30 +23,8 @@ const Recipe = (props) => (
           {props.proportion} personas
         </div>
       </VerticalCenteredContent>
-      <nav className={`level ${styles.actions}`}>
-        <div className="level-left">
-          <button
-            className={`level-item button is-white is-paddingless ${styles.action}`}
-            onClick={props.onEdit}
-          >
-            <span className="icon is-small">
-              <i className="fa fa-pencil" />
-            </span>
-          </button>
-        </div>
-        <div className="level-right" >
-          <button
-            className={`level-item button is-white is-paddingless ${styles.action}`}
-            onClick={props.onDelete}
-          >
-            <span className="icon is-small">
-              <i className="fa fa-trash" />
-            </span>
-          </button>
-        </div>
-      </nav>
     </div>
-  </div>
+  </Card>
 )
 
 Recipe.propTypes = {
