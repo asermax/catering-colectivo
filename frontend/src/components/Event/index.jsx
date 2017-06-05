@@ -33,7 +33,7 @@ const Event = (props) => (
 Event.propTypes = {
   organization: PropTypes.string.isRequired,
   description: PropTypes.string,
-  date: PropTypes.instanceOf(Date),
+  date: PropTypes.string,
   amountPeople: PropTypes.number,
   onEdit: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
