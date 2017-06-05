@@ -11,6 +11,7 @@ module.exports = function() {
         'bulma/bulma.sass',
         'font-awesome/scss/font-awesome.scss',
         './src/patches/react-contenteditable-patch.js',
+        './src/patches/moment-locale-patch.js',
         './src/index.jsx',
       ],
     },
