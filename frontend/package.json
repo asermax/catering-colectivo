@@ -40,6 +40,7 @@
     "webpack-dev-server": "^2.x"
   },
   "dependencies": {
+    "classnames": "^2.2.5",
     "es6-promise": "^4.x",
     "font-awesome": "^4.x",
     "isomorphic-fetch": "^2.x",
