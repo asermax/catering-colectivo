@@ -53,7 +53,7 @@ const Card = (props) => (
 
 Card.propTypes = {
   children: PropTypes.element.isRequired,
-  hiddenActions: PropTypes.boolean,
+  hiddenActions: PropTypes.bool,
   leftAction: PropTypes.shape({
     icon: PropTypes.string.isRequired,
     callback: PropTypes.func.isRequired,
