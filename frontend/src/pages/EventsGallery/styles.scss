@@ -1,0 +1,13 @@
+.event-gallery {
+  flex-wrap: wrap;
+}
+
+.event-item {
+  flex-shrink: 0;
+  flex-grow: 0;
+  min-width: percentage(1/4);
+
+  & > * {
+    height: 100%;
+  }
+}
