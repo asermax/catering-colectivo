@@ -4,6 +4,9 @@
         "sourceType": "module"
     },
     "extends": ["eslint:recommended"],
+    "env": {
+      "node": true
+    },
     "rules": {
         "semi": ["error", "never"],
         "no-trailing-spaces": "error",
