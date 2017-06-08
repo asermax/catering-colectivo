@@ -1,6 +1,7 @@
 /* globals require, module, __dirname */
 const webpack = require('webpack')
 const path = require('path')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = function() {
   return {
@@ -92,6 +93,9 @@ module.exports = function() {
          return module.context && module.context.indexOf('node_modules') !== -1
         },
       }),
+      new CopyWebpackPlugin([
+        { from: path.resolve(__dirname, 'src', 'index.html') },
+      ]),
     ],
   }
 }
