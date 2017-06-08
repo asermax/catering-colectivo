@@ -1,0 +1,12 @@
+version: '3'
+services:
+  api:
+    image: mhart/alpine-node:8
+    volumes:
+      - ./api:/opt/app
+    command: sh -c "cd /opt/app && yarn install --force && yarn build"
+  frontend:
+    image: mhart/alpine-node:8
+    volumes:
+      - ./frontend:/opt/app
+    command: sh -c "cd /opt/app && yarn install --force && yarn build"
