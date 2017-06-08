@@ -1,9 +1,11 @@
-const { resolve }  = require('path');
+const { resolve }  = require('path')
+const nodeExternals = require('webpack-node-externals')
 
-module.exports = function(env) {
+module.exports = function() {
   return {
     entry: resolve(__dirname, 'src', 'server.js'),
     target: 'node',
+    externals: [ nodeExternals() ],
     output: {
       filename: 'bundle.js',
       path: resolve(__dirname, 'dist'),
@@ -13,11 +15,11 @@ module.exports = function(env) {
         {
           test: /\.js$/,
           use: [
-            'babel-loader'
+            'babel-loader',
           ],
-          exclude: /node_modules/
-        }
-      ]
-    }
+          exclude: /node_modules/,
+        },
+      ],
+    },
   }
 }
