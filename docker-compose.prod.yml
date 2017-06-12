@@ -1,10 +1,10 @@
 version: '3'
 services:
   web:
-    image: catering-colectivo/web:latest
+    image: asermax/catering-colectivo-web:latest
     build: .
   api:
-    image: catering-colectivo/api:latest
+    image: asermax/catering-colectivo-api:latest
     build: api/
     volumes:
       - ./api/node_modules:/opt/app/node_modules
