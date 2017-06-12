@@ -3,3 +3,4 @@
 !dist
 !index.js
 !package.json
+!yarn.lock

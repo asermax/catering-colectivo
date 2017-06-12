@@ -3,7 +3,7 @@ MAINTAINER Agustin Carrasco <asermax@gmail.com>
 
 WORKDIR /opt/app
 ADD dist ./dist
-ADD index.js package.json ./
+ADD index.js package.json yarn.lock ./
 
 VOLUME /opt/app/node_modules
 
