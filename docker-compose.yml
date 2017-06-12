@@ -10,6 +10,6 @@ services:
       - db
     environment:
       - PORT=80
-      - MONGO_URL=mongodb://db:27017/tsuiseki
+      - MONGO_URL=mongodb://db:27017/catering-colectivo
   db:
     image: mongo:3.4
