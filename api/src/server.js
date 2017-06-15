@@ -8,7 +8,14 @@ import routes from './routes'
 
 // mongoose
 mongoose.Promise = Promise
-mongoose.connect(MONGO_URL)
+const connect = () => (
+  mongoose.connect(MONGO_URL, (err) => {
+    if (err != null) {
+      setTimeout(connect, 5000)
+    }
+  })
+)
+connect()
 
 // setup express instance
 const app = express()
