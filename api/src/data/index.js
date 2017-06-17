@@ -1,10 +1,12 @@
 import { makeExecutableSchema } from 'graphql-tools'
 import scalarResolvers from './scalars'
 import { recipeDefinition, recipeResolver } from './recipe'
+import { eventDefinition, eventResolver } from './event'
 
 const queryDefinition = `
   type Query {
     recipes: [Recipe]
+    events: [Event]
   }
 
   type Mutation {
@@ -22,16 +24,19 @@ const typeDefs = [
   scalarDefinitions,
   queryDefinition,
   recipeDefinition,
+  eventDefinition,
 ]
 
 const resolvers = {
   ...scalarResolvers,
   Query: {
-    ...recipeResolver.Query,
+    ...recipeResolver.root.Query,
+    ...eventResolver.root.Query,
   },
   Mutation: {
-    ...recipeResolver.Mutation,
+    ...recipeResolver.root.Mutation,
   },
+  ...eventResolver.nested,
 }
 
 const schema = makeExecutableSchema({ typeDefs, resolvers })

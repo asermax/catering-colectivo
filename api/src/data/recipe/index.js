@@ -1,4 +1,5 @@
+import Recipe from './model'
 import recipeDefinition from './definition'
 import recipeResolver from './resolver'
 
-export { recipeDefinition, recipeResolver }
+export { Recipe, recipeDefinition, recipeResolver }
