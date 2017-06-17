@@ -18,6 +18,9 @@
     "express": "^4.x",
     "express-promise-router": "^1.x",
     "express-restify-mongoose": "^4.x",
+    "graphql": "^0.x",
+    "graphql-server-express": "^0.x",
+    "graphql-tools": "^1.x",
     "mongoose": "^4.x"
   },
   "devDependencies": {
