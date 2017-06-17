@@ -10,7 +10,7 @@ services:
     image: mhart/alpine-node:8
     volumes:
       - ./api:/opt/app
-    command: sh -c "cd /opt/app && yarn migrate && yarn start"
+    command: sh -c "cd /opt/app && yarn start"
   frontend:
     image: mhart/alpine-node:8
     volumes:
