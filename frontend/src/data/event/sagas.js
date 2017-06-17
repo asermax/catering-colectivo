@@ -1,15 +1,14 @@
 import { call, put, takeLatest } from 'redux-saga/effects'
 import api from 'data/api'
 import { receiveEvents, failReceiveEvents, EVENT_FETCH_REQUEST } from './actions'
-
-const EVENT_ENTRYPOINT = 'event'
+import { allEventsQuery } from './queries'
 
 function* fetchEvents() {
   try {
-    const events = yield call(api.fetch, EVENT_ENTRYPOINT)
-    yield put(receiveEvents(events))
-  } catch(e) {
-    yield put(failReceiveEvents())
+    const response = yield call(api.query, allEventsQuery)
+    yield put(receiveEvents(response.events))
+  } catch(error) {
+    yield put(failReceiveEvents(error.mesage))
   }
 }
 

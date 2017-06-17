@@ -11,6 +11,7 @@ export const receiveEvents = (events) => ({
   events,
 })
 
-export const failReceiveEvents = () => ({
+export const failReceiveEvents = (message) => ({
   type: EVENT_FETCH_FAILURE,
+  message,
 })
