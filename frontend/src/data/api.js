@@ -1,4 +1,5 @@
 import _fetch from 'isomorphic-fetch'
+import apollo from './apollo'
 
 function buildPath(entrypoint) {
   return `${API_PREFIX}/${entrypoint}`
@@ -47,11 +48,25 @@ async function _delete(entrypoint, id) {
   return response.ok
 }
 
+async function query(query, fetchPolicy = 'network-only') {
+  const response = await apollo.query({ query, fetchPolicy })
+
+  return response.data
+}
+
+async function mutate(mutation, variables) {
+  const response = await apollo.mutate({ mutation, variables })
+
+  return response.data
+}
+
 export const API_PREFIX = '/api/v1'
 export default {
   fetch,
   create,
   update,
   delete: _delete,
+  query,
+  mutate,
 }
 

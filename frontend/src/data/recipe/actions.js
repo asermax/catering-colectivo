@@ -20,8 +20,9 @@ export const receiveRecipes = (recipes) => ({
   recipes,
 })
 
-export const failReceiveRecipes = () => ({
+export const failReceiveRecipes = (message) => ({
   type: RECIPE_FETCH_FAILURE,
+  message,
 })
 
 export const createRecipe = (recipe) => ({
@@ -34,8 +35,9 @@ export const receiveRecipe = (recipe) => ({
   recipe,
 })
 
-export const failReceiveRecipe = () => ({
+export const failReceiveRecipe = (message) => ({
   type: RECIPE_CREATE_FAILURE,
+  message,
 })
 
 export const deleteRecipe = (id) => ({
@@ -48,8 +50,9 @@ export const removeRecipe = (id) => ({
   id,
 })
 
-export const failRemoveRecipe = () => ({
+export const failRemoveRecipe = (message) => ({
   type: RECIPE_DELETE_FAILURE,
+  message,
 })
 
 export const editRecipe = (id, recipe) => ({
@@ -64,6 +67,7 @@ export const updateRecipe = (id, recipe) => ({
   recipe,
 })
 
-export const failUpdateRecipe = () => ({
+export const failUpdateRecipe = (message) => ({
   type: RECIPE_EDIT_FAILURE,
+  message,
 })

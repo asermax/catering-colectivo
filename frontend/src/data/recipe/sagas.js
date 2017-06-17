@@ -6,47 +6,50 @@ import {
   updateRecipe, failUpdateRecipe, RECIPE_EDIT_REQUEST,
   removeRecipe, failRemoveRecipe, RECIPE_DELETE_REQUEST,
 } from './actions'
-
-const RECIPE_ENTRYPOINT = 'recipe'
+import { allRecipesQuery } from './queries'
+import { createRecipeMutation, updateRecipeMutation, deleteRecipeMutation } from './mutations'
 
 function* fetchRecipes() {
   try {
-    const recipes = yield call(api.fetch, RECIPE_ENTRYPOINT)
-    yield put(receiveRecipes(recipes))
-  } catch(e) {
-    yield put(failReceiveRecipes())
+    const queryResult = yield call(api.query, allRecipesQuery)
+    yield put(receiveRecipes(queryResult.recipes))
+  } catch(error) {
+    yield put(failReceiveRecipes(error.message))
   }
 }
 
 function* createRecipe(action) {
   try {
-    const recipe = yield call(api.create, RECIPE_ENTRYPOINT, action.recipe)
-    yield put(receiveRecipe(recipe))
-  } catch(e) {
-    yield put(failReceiveRecipe())
+    const response = yield call(api.mutate, createRecipeMutation, { recipe: action.recipe })
+    yield put(receiveRecipe(response.recipe))
+  } catch(error) {
+    yield put(failReceiveRecipe(error.message))
   }
 }
 
 function* editRecipe(action) {
   try {
-    const recipe = yield call(api.update, RECIPE_ENTRYPOINT, action.id, action.recipe)
-    yield put(updateRecipe(action.id, recipe))
-  } catch(e) {
-    yield put(failUpdateRecipe())
+    const response = yield call(api.mutate, updateRecipeMutation, {
+      id: action.id,
+      recipe: action.recipe ,
+    })
+    yield put(updateRecipe(action.id, response.recipe))
+  } catch(error) {
+    yield put(failUpdateRecipe(error.message))
   }
 }
 
 function* deleteRecipe(action) {
   try {
-    const ok = yield call(api.delete, RECIPE_ENTRYPOINT, action.id)
+    const response = yield call(api.mutate, deleteRecipeMutation, { id: action.id })
 
-    if (ok) {
+    if (response.deleted) {
       yield put(removeRecipe(action.id))
     } else {
-      yield put(failRemoveRecipe())
+      yield put(failRemoveRecipe('The recipe couldn\'t be deleted'))
     }
-  } catch(e) {
-    yield put(failRemoveRecipe())
+  } catch(error) {
+    yield put(failRemoveRecipe(error.message))
   }
 }
 

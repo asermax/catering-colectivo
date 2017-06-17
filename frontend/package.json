@@ -27,6 +27,7 @@
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.x",
     "eslint": "^3.x",
+    "eslint-plugin-graphql": "^1.0.0",
     "eslint-plugin-jest": "^19.x",
     "eslint-plugin-react": "^6.x",
     "file-loader": "^0.x",
@@ -41,9 +42,11 @@
     "webpack-dev-server": "^2.x"
   },
   "dependencies": {
+    "apollo-client": "^1.4.2",
     "classnames": "^2.2.5",
     "es6-promise": "^4.x",
     "font-awesome": "^4.x",
+    "graphql-tag": "^2.3.0",
     "isomorphic-fetch": "^2.x",
     "moment": "^2.18.1",
     "monkeypatch": "^1.x",
