@@ -23,7 +23,7 @@ const Event = (props) => (
           {props.description}
         </div>
         <small>
-          {moment(props.date).calendar()}
+          {props.date != null ? moment(props.date).calendar() : ''}
         </small>
       </div>
     </div>
