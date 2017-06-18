@@ -1,9 +1,9 @@
 {
-  "name": "@tsuiseki/frontend",
+  "name": "catering-colectivo-frontend",
   "version": "0.0.1",
-  "description": "Tsuiseki's frontend",
+  "description": "Catering Colectivo Frontend",
   "main": " ",
-  "repository": "git@github.com:Tsuiseki/frontend.git",
+  "repository": "git@github.com:asermax/catering-colectivo.git/frontend",
   "author": "Agustin Carrasco <asermax@gmail.com>",
   "license": "MIT",
   "scripts": {
@@ -47,6 +47,7 @@
     "es6-promise": "^4.x",
     "font-awesome": "^4.x",
     "graphql-tag": "^2.3.0",
+    "history": "^4.6.2",
     "moment": "^2.18.1",
     "monkeypatch": "^1.x",
     "prop-types": "^15.x",
@@ -54,10 +55,9 @@
     "react-contenteditable": "^2.x",
     "react-dom": "^15.x",
     "react-redux": "^5.x",
-    "react-router": "4.x",
-    "react-router-dom": "^4.x",
-    "react-router-redux": "^5.0.0-alpha.6",
     "redux": "^3.x",
+    "redux-first-router": "^1.4.8",
+    "redux-first-router-link": "^1.0.2",
     "redux-saga": "^0.x"
   }
 }

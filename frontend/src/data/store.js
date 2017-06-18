@@ -1,14 +1,15 @@
 /* globals module, window */
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import createSagaMiddleware from 'redux-saga'
-import { routerReducer, routerMiddleware } from 'react-router-redux'
+import { connectRoutes } from 'redux-first-router'
+import routes from 'pages/routes'
 import appReducers from './reducers'
 import appSagas from './sagas'
 
-function generateReducer() {
+function generateReducer(routerReducer) {
   return combineReducers({
     ...appReducers,
-    router: routerReducer,
+    location: routerReducer,
   })
 }
 
@@ -18,18 +19,19 @@ function runSagas(middleware) {
 
 export function configureStore(history, initialState = {}) {
   // initialize middlewares
-  const routerMiddlewareInit = routerMiddleware(history)
+  const router = connectRoutes(history, routes)
   const sagaMiddleware = createSagaMiddleware()
 
   // create store
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
   const store = createStore(
-    generateReducer(),
+    generateReducer(router.reducer),
     initialState,
     composeEnhancers(
+      router.enhancer,
       applyMiddleware(
         sagaMiddleware,
-        routerMiddlewareInit,
+        router.middleware,
       ),
     )
   )

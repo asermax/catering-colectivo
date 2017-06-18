@@ -12,7 +12,7 @@ const store = configureStore(history)
 const startUpApp = () => {
   render(
     <AppContainer>
-      <Bootstrap store={store} history={history} />
+      <Bootstrap store={store} />
     </AppContainer>,
     document.getElementById('root')
   )

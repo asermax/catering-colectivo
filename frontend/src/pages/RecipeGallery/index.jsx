@@ -1,15 +1,13 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { Route } from 'react-router-dom'
-import { push } from 'react-router-redux'
 import moment from 'moment'
-import { getRecipes } from 'data/recipe/selectors'
+import * as routes from 'pages/routes'
+import { getRecipes, getEditingRecipe, getAddingRecipe } from 'data/recipe/selectors'
 import { fetchRecipes, deleteRecipe } from 'data/recipe/actions'
 import Recipe from 'components/Recipe'
 import RecipeAdd from './RecipeAdd'
 import RecipeEdit from './RecipeEdit'
-import routes from 'pages/routes'
 import styles from './styles.scss'
 
 class RecipeGallery extends Component {
@@ -17,8 +15,8 @@ class RecipeGallery extends Component {
     this.props.fetchRecipes()
   }
 
-  renderRecipe(recipe, match) {
-    if (match != null) {
+  renderRecipe(recipe) {
+    if (recipe._id === this.props.editing) {
       return (
         <RecipeEdit
           recipeId={recipe._id}
@@ -44,15 +42,10 @@ class RecipeGallery extends Component {
     return (
       <div className={`columns ${styles.recipeGallery}`}>
         <div className={`column ${styles.recipeItem}`}>
-          <Route
-            path={routes.ADD_RECIPE}
-            children={({ match }) => (
-              <RecipeAdd
-                enabled={match != null}
-                onEnable={this.props.goAddRecipe}
-                onDisable={this.props.backAddRecipe}
-              />
-            )}
+          <RecipeAdd
+            enabled={this.props.adding}
+            onEnable={this.props.goAddRecipe}
+            onDisable={this.props.backAddRecipe}
           />
         </div>
         {
@@ -61,10 +54,7 @@ class RecipeGallery extends Component {
               className={`column ${styles.recipeItem}`}
               key={recipe._id}
             >
-              <Route
-                path={routes.EDIT_RECIPE.replace(':id', recipe._id)}
-                children={({ match }) => this.renderRecipe(recipe, match)}
-              />
+              {this.renderRecipe(recipe)}
             </div>
           )
         }
@@ -75,6 +65,8 @@ class RecipeGallery extends Component {
 
 RecipeGallery.propTypes = {
   recipes: PropTypes.arrayOf(PropTypes.object).isRequired,
+  editing: PropTypes.string,
+  adding: PropTypes.bool.isRequired,
   fetchRecipes: PropTypes.func.isRequired,
   deleteRecipe: PropTypes.func.isRequired,
   goAddRecipe: PropTypes.func.isRequired,
@@ -87,15 +79,17 @@ const mapStateToProps = (state) => ({
   recipes: getRecipes(state).slice(0).sort((a, b) => (
     moment(b.creationDate).diff(moment(a.creationDate))
   )),
+  editing: getEditingRecipe(state),
+  adding: getAddingRecipe(state),
 })
 
 const mapDispatchToProps = (dispatch) => ({
   fetchRecipes: () => dispatch(fetchRecipes()),
   deleteRecipe: (id) => dispatch(deleteRecipe(id)),
-  goAddRecipe: () => dispatch(push(routes.ADD_RECIPE)),
-  backAddRecipe: () => dispatch(push(routes.RECIPE_GALLERY)),
-  goEditRecipe: (id) => dispatch(push(routes.EDIT_RECIPE.replace(':id', id))),
-  backEditRecipe: () => dispatch(push(routes.RECIPE_GALLERY)),
+  goAddRecipe: () => dispatch(routes.goTo(routes.RECIPE_ADD)),
+  backAddRecipe: () => dispatch(routes.goTo(routes.RECIPE_GALLERY)),
+  goEditRecipe: (id) => dispatch(routes.goTo(routes.RECIPE_EDIT, { id })),
+  backEditRecipe: () => dispatch(routes.goTo(routes.RECIPE_GALLERY)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecipeGallery)

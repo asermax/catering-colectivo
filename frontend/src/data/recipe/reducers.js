@@ -1,49 +1,61 @@
+import { combineReducers } from 'redux'
+import * as routes from 'pages/routes'
 import {
   RECIPE_FETCH_SUCCESS, RECIPE_CREATE_SUCCESS, RECIPE_EDIT_SUCCESS, RECIPE_DELETE_SUCCESS,
 } from './actions'
 
-const defaultState = {
-  list: [],
-}
-
-const recipesReducer = (state = defaultState, action) => {
+const listDefaultState = []
+const list = (state = listDefaultState, action) => {
   switch(action.type) {
     case RECIPE_FETCH_SUCCESS:
-      return {
-        ...state,
-        list: [
-          ...action.recipes,
-        ],
-      }
+      return [
+        ...action.recipes,
+      ]
     case RECIPE_CREATE_SUCCESS:
-      return {
+      return [
+        {
+          ...action.recipe,
+        },
         ...state,
-        list: [
-          {
-            ...action.recipe,
-          },
-          ...state.list,
-        ],
-      }
+      ]
     case RECIPE_EDIT_SUCCESS:
-      return {
-        ...state,
-        list: [
-          ...state.list.filter((recipe) => recipe._id !== action.id),
-          {
-            ...state.list.find((recipe) => recipe._id === action.id),
-            ...action.recipe,
-          },
-        ],
-      }
+      return [
+        ...state.filter((recipe) => recipe._id !== action.id),
+        {
+          ...state.find((recipe) => recipe._id === action.id),
+          ...action.recipe,
+        },
+      ]
     case RECIPE_DELETE_SUCCESS:
-      return {
-        ...state,
-        list: state.list.filter((recipe) => recipe._id !== action.id),
-      }
+      return state.filter((recipe) => recipe._id !== action.id)
     default:
       return state
   }
 }
 
-export default recipesReducer
+const editing = (state = null, action) => {
+  if (action.type === routes.RECIPE_EDIT) {
+    return action.payload.id
+  } else if (!routes[action.type]) {
+    return null
+  } else {
+    return state
+  }
+}
+
+const adding = (state = false, action) => {
+  if (action.type === routes.RECIPE_ADD) {
+    return true
+  } else if (!routes[action.type]) {
+    return false
+  } else {
+    return state
+  }
+}
+
+export default combineReducers({
+  list,
+  editing,
+  adding,
+})
+
