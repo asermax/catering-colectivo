@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import * as routes from 'pages/routes'
-import { getRecipes, getEditingRecipe, getAddingRecipe } from 'data/recipe/selectors'
+import { getDateOrderedRecipes, getEditingRecipe } from 'data/recipe/selectors'
 import { fetchRecipes, deleteRecipe } from 'data/recipe/actions'
 import Recipe from 'components/Recipe'
 import RecipeAdd from './RecipeAdd'
@@ -41,11 +41,7 @@ class RecipeGallery extends Component {
     return (
       <div className={`columns ${styles.recipeGallery}`}>
         <div className={`column ${styles.recipeItem}`}>
-          <RecipeAdd
-            enabled={this.props.adding}
-            onEnable={this.props.goAddRecipe}
-            onDisable={this.props.backAddRecipe}
-          />
+          <RecipeAdd />
         </div>
         {
           this.props.recipes.map((recipe) => (
@@ -65,26 +61,20 @@ class RecipeGallery extends Component {
 RecipeGallery.propTypes = {
   recipes: PropTypes.arrayOf(PropTypes.object).isRequired,
   editing: PropTypes.string,
-  adding: PropTypes.bool.isRequired,
   fetchRecipes: PropTypes.func.isRequired,
   deleteRecipe: PropTypes.func.isRequired,
-  goAddRecipe: PropTypes.func.isRequired,
-  backAddRecipe: PropTypes.func.isRequired,
   goEditRecipe: PropTypes.func.isRequired,
   backEditRecipe: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state) => ({
-  recipes: getRecipes(state).slice(0).sort((a, b) => (b.creationDate - a.creationDate)),
+  recipes: getDateOrderedRecipes(state),
   editing: getEditingRecipe(state),
-  adding: getAddingRecipe(state),
 })
 
 const mapDispatchToProps = (dispatch) => ({
   fetchRecipes: () => dispatch(fetchRecipes()),
   deleteRecipe: (id) => dispatch(deleteRecipe(id)),
-  goAddRecipe: () => dispatch(routes.goTo(routes.RECIPE_ADD)),
-  backAddRecipe: () => dispatch(routes.goTo(routes.RECIPE_GALLERY)),
   goEditRecipe: (id) => dispatch(routes.goTo(routes.RECIPE_EDIT, { id })),
   backEditRecipe: () => dispatch(routes.goTo(routes.RECIPE_GALLERY)),
 })
