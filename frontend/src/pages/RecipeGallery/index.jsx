@@ -55,7 +55,7 @@ class RecipeGallery extends Component {
               key={recipe._id}
             >
               {this.renderRecipe(recipe)}
-            </div>
+            </div>,
           )
         }
       </div>

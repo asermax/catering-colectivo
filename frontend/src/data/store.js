@@ -33,7 +33,7 @@ export function configureStore(history, initialState = {}) {
         sagaMiddleware,
         router.middleware,
       ),
-    )
+    ),
   )
 
   // apply sagas

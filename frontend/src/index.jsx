@@ -14,7 +14,7 @@ const startUpApp = () => {
     <AppContainer>
       <Bootstrap store={store} />
     </AppContainer>,
-    document.getElementById('root')
+    document.getElementById('root'),
   )
 }
 
