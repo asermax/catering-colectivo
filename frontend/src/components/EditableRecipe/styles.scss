@@ -5,7 +5,7 @@
 
   &:empty:before {
     content: attr(placeholder);
-    display: inline-block;
+    display: block;
     width: 100%;
     opacity: 0.6;
     white-space: nowrap;
