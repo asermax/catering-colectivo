@@ -55,9 +55,11 @@
     "react-contenteditable": "^2.x",
     "react-dom": "^15.x",
     "react-redux": "^5.x",
+    "recompose": "^0.x",
     "redux": "^3.x",
     "redux-first-router": "^1.4.8",
     "redux-first-router-link": "^1.0.2",
-    "redux-saga": "^0.x"
+    "redux-saga": "^0.x",
+    "reselect": "^3.x"
   }
 }
