@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import moment from 'moment'
 import * as routes from 'pages/routes'
 import { getRecipes, getEditingRecipe, getAddingRecipe } from 'data/recipe/selectors'
 import { fetchRecipes, deleteRecipe } from 'data/recipe/actions'
@@ -49,14 +48,14 @@ class RecipeGallery extends Component {
           />
         </div>
         {
-          this.props.recipes.map((recipe) =>
+          this.props.recipes.map((recipe) => (
             <div
               className={`column ${styles.recipeItem}`}
               key={recipe._id}
             >
               {this.renderRecipe(recipe)}
-            </div>,
-          )
+            </div>
+          ))
         }
       </div>
     )
@@ -76,9 +75,7 @@ RecipeGallery.propTypes = {
 }
 
 const mapStateToProps = (state) => ({
-  recipes: getRecipes(state).slice(0).sort((a, b) => (
-    moment(b.creationDate).diff(moment(a.creationDate))
-  )),
+  recipes: getRecipes(state).slice(0).sort((a, b) => (b.creationDate - a.creationDate)),
   editing: getEditingRecipe(state),
   adding: getAddingRecipe(state),
 })
