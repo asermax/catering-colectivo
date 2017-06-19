@@ -36,7 +36,7 @@ const list = (state = listDefaultState, action) => {
 const editing = (state = null, action) => {
   if (action.type === routes.RECIPE_EDIT) {
     return action.payload.id
-  } else if (!routes[action.type]) {
+  } else if (routes.default[action.type]) {
     return null
   } else {
     return state
@@ -46,7 +46,7 @@ const editing = (state = null, action) => {
 const adding = (state = false, action) => {
   if (action.type === routes.RECIPE_ADD) {
     return true
-  } else if (!routes[action.type]) {
+  } else if (routes.default[action.type]) {
     return false
   } else {
     return state
