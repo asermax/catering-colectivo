@@ -6,8 +6,8 @@ export const RECIPE_ADD = 'ROUTE_RECIPE_ADD'
 export default {
   [EVENT_GALLERY]: '/',
   [RECIPE_GALLERY]: '/recipes',
-  [RECIPE_EDIT]: '/recipes/:id',
   [RECIPE_ADD]: '/recipes/add',
+  [RECIPE_EDIT]: '/recipes/:id',
 }
 
 export const goTo = (type, payload) => ({
