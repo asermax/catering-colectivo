@@ -10,6 +10,7 @@ export const RECIPE_EDIT_FAILURE = 'RECIPE_EDIT_FAILURE'
 export const RECIPE_DELETE_REQUEST = 'RECIPE_DELETE_REQUEST'
 export const RECIPE_DELETE_SUCCESS = 'RECIPE_DELETE_SUCCESS'
 export const RECIPE_DELETE_FAILURE = 'RECIPE_DELETE_FAILURE'
+export const NEW_RECIPE_CHANGE = 'NEW_RECIPE_CHANGE'
 
 export const fetchRecipes = () => ({
   type: RECIPE_FETCH_REQUEST,
@@ -70,4 +71,9 @@ export const updateRecipe = (id, recipe) => ({
 export const failUpdateRecipe = (message) => ({
   type: RECIPE_EDIT_FAILURE,
   message,
+})
+
+export const changeNewRecipe = (changes) => ({
+  type: NEW_RECIPE_CHANGE,
+  changes,
 })

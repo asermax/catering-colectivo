@@ -1,94 +1,63 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { createRecipe } from 'data/recipe/actions'
+import classNames from 'classnames'
+import { compose, branch, renderComponent, flattenProp, mapProps } from 'recompose'
+import * as routes from 'pages/routes'
+import { createRecipe, changeNewRecipe } from 'data/recipe/actions'
+import { isAddingRecipe, getNewRecipe } from 'data/recipe/selectors'
 import VerticalCenteredContent from 'components/VerticalCenteredContent'
 import EditableRecipe from 'components/EditableRecipe'
 import styles from './styles.scss'
 
-class RecipeAdd extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      ingredient: null,
-      description: null,
-      quantity: 1,
-      unit: 'unidad',
-      proportion: 1,
-    }
-  }
-
-  cleanState() {
-    this.setState({
-      ingredient: null,
-      description: null,
-      quantity: 1,
-      unit: 'unidad',
-      proportion: 1,
-    })
-  }
-
-  handleCancel() {
-    this.cleanState()
-    this.props.onDisable()
-  }
-
-  handleSave() {
-    this.props.createRecipe({
-      ...this.state,
-    })
-    this.handleCancel()
-  }
-
-  renderEditableRecipe() {
-    return (
-      <EditableRecipe
-        ingredient={this.state.ingredient}
-        description={this.state.description}
-        quantity={this.state.quantity}
-        unit={this.state.unit}
-        proportion={this.state.proportion}
-        onChange={(change) => this.setState(change)}
-        onSave={() => this.handleSave()}
-        onCancel={() => this.handleCancel()}
-      />
-    )
-  }
-
-  renderPlaceholder() {
-    return (
-      <div
-        className={`card ${styles.recipeAdd}`}
-        onClick={this.props.onEnable}
-      >
-        <VerticalCenteredContent className={`card-content ${styles.recipeAddContent}`}>
-          <div className="notification has-text-centered">
-            <div>
-              <span className="icon is-large">
-                <i className="fa fa-plus-circle" />
-              </span>
-            </div>
-            Agregar nueva receta
-          </div>
-        </VerticalCenteredContent>
+let Placeholder = ({ goAdd }) => (
+  <div
+    className={classNames('card', styles.recipeAdd)}
+    onClick={goAdd}
+  >
+    <VerticalCenteredContent className={classNames('card-content', styles.recipeAddContent)}>
+      <div className="notification has-text-centered">
+        <div>
+          <span className="icon is-large">
+            <i className="fa fa-plus-circle" />
+          </span>
+        </div>
+        Agregar nueva receta
       </div>
-    )
-  }
+    </VerticalCenteredContent>
+  </div>
+)
 
-  render() {
-    return this.props.enabled ? this.renderEditableRecipe() : this.renderPlaceholder()
-  }
+Placeholder.propTypes = {
+  goAdd: PropTypes.func.isRequired,
 }
 
-RecipeAdd.propTypes = {
-  enabled: PropTypes.bool.isRequired,
-  onEnable: PropTypes.func.isRequired,
-  onDisable: PropTypes.func.isRequired,
-  createRecipe: PropTypes.func.isRequired,
-}
-
-const mapDispatchToProps = (dispatch) => ({
-  createRecipe: (recipe) => dispatch(createRecipe(recipe)),
+const mapStateToProps = (state) => ({
+  isAdding: isAddingRecipe(state),
+  newRecipe: getNewRecipe(state),
 })
 
-export default connect(null, mapDispatchToProps)(RecipeAdd)
+const mapDispatchToProps = (dispatch) => ({
+  goAdd: () => dispatch(routes.goTo(routes.RECIPE_ADD)),
+  onCancel: () => dispatch(routes.goTo(routes.RECIPE_GALLERY)),
+  onChange: (changes) => dispatch(changeNewRecipe(changes)),
+  onSave: (recipe) => dispatch(createRecipe(recipe)),
+})
+
+const enhance = compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  branch(
+    ({ isAdding }) => !isAdding,
+    renderComponent(Placeholder),
+  ),
+  mapProps(({ onSave, ...props }) => ({
+    onSave: () => {
+      onSave(props.newRecipe)
+      props.onCancel()
+    },
+    ...props,
+  })),
+  flattenProp('newRecipe'),
+)
+
+export default enhance(EditableRecipe)

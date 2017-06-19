@@ -2,6 +2,7 @@ import { combineReducers } from 'redux'
 import * as routes from 'pages/routes'
 import {
   RECIPE_FETCH_SUCCESS, RECIPE_CREATE_SUCCESS, RECIPE_EDIT_SUCCESS, RECIPE_DELETE_SUCCESS,
+  NEW_RECIPE_CHANGE,
 } from './actions'
 
 const listDefaultState = []
@@ -43,7 +44,7 @@ const editing = (state = null, action) => {
   }
 }
 
-const adding = (state = false, action) => {
+const isAdding = (state = false, action) => {
   if (action.type === routes.RECIPE_ADD) {
     return true
   } else if (routes.default[action.type]) {
@@ -53,9 +54,38 @@ const adding = (state = false, action) => {
   }
 }
 
+const newRecipe = (state = null, action) => {
+  switch(action.type) {
+    case routes.RECIPE_ADD:
+      return {
+        ingredient: null,
+        description: null,
+        quantity: 1,
+        unit: 'unidad',
+        proportion: 1,
+      }
+    case NEW_RECIPE_CHANGE:
+      return {
+        ...state,
+        ...action.changes,
+      }
+    default:
+      if (routes.default[action.type]) {
+        return null
+      } else {
+        return state
+      }
+  }
+}
+
+const add = combineReducers({
+  isAdding,
+  newRecipe,
+})
+
 export default combineReducers({
   list,
   editing,
-  adding,
+  add,
 })
 
