@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { coalesce } from 'utils'
+import classNames from 'classnames'
 import styles from './styles.scss'
 
 const VerticalCenteredContent = (props) => (
-  <div className={`${styles.container} ${coalesce(props.className, '')}`}>
+  <div className={classNames(styles.container, props.className)}>
     <div className={styles.shim} />
     <div className={styles.content}>
       {props.children}
