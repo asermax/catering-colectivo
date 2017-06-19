@@ -25,8 +25,8 @@ module.exports = {
     },
     'rules': {
         'graphql/template-strings': ['error', {
-          env: 'apollo',
-          schemaJsonFilepath: path.resolve(__dirname, '..', 'api', 'gql_schema.json')
+          'env': 'apollo',
+          'schemaJsonFilepath': path.resolve(__dirname, '..', 'api', 'gql_schema.json')
         }],
         'semi': ['error', 'never'],
         'no-trailing-spaces': 'error',
@@ -35,7 +35,13 @@ module.exports = {
         'object-curly-spacing': ['error', 'always'],
         'array-bracket-spacing': ['error', 'always'],
         'curly': 'error',
-        'comma-dangle': ['error', 'always-multiline'],
+        'comma-dangle': ['error', {
+          'arrays': 'always-multiline',
+          'objects': 'always-multiline',
+          'imports': 'always-multiline',
+          'exports': 'always-multiline',
+          'functions': 'always-multiline',
+        }],
         'max-len': ['error', 100],
     },
 }
