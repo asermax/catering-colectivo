@@ -1,29 +1,28 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import classNames from 'classnames'
 import moment from 'moment'
 import Card from 'components/Card'
 import styles from './styles.scss'
 
-const Event = (props) => (
+const Event = ({ organization, description, date, amountPeople, onEdit, onDelete }) => (
   <Card
-    onEdit={props.onEdit}
-    onDelete={props.onDelete}
-    leftAction={{ icon: 'pencil', callback: props.onEdit }}
-    rightAction={{ icon: 'trash', callback: props.onDelete }}
+    leftAction={{ icon: 'pencil', callback: onEdit }}
+    rightAction={{ icon: 'trash', callback: onDelete }}
   >
     <div className={styles.eventContent}>
       <h1 className="title">
-        {props.organization}
+        {organization}
       </h1>
       <h2 className="subtitle">
-        para {props.amountPeople} personas.
+        para {amountPeople} personas.
       </h2>
-      <div className={`content ${styles.eventDetails}`}>
+      <div className={classNames('content', styles.eventDetails)}>
         <div className={styles.eventDescription}>
-          {props.description}
+          {description}
         </div>
         <small>
-          {props.date != null ? moment(props.date).calendar() : ''}
+          {date != null ? moment(date).calendar() : ''}
         </small>
       </div>
     </div>
