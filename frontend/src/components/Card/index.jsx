@@ -6,7 +6,7 @@ import {
 } from 'recompose'
 import styles from './styles.scss'
 
-const Action = ({ position, disabled, callback, icon }) => (
+let Action = ({ position, disabled, callback, icon }) => (
   <div className={`level-${position}`}>
     <button
       className={`level-item button is-white is-paddingless ${styles.action}`}
@@ -27,12 +27,13 @@ Action.propTypes = {
   icon: PropTypes.string.isRequired,
 }
 
+Action = flattenProp('action')(Action)
+
 const LeftAction = compose(
   branch(
     (props) => props.action == null,
     renderComponent(() => <div className="level-left" />),
   ),
-  flattenProp('action'),
   withProps({ position: 'left' }),
 )(Action)
 
@@ -41,12 +42,11 @@ const RightAction = compose(
     (props) => props.action == null,
     renderNothing,
   ),
-  flattenProp('action'),
   withProps({ position: 'right' }),
 )(Action)
 
 
-const Actions = ({ hiddenActions, leftAction, rightAction }) => (
+let Actions = ({ hiddenActions, leftAction, rightAction }) => (
   <nav className={classNames('level', styles.actions, { [styles.isHidden]: hiddenActions })}>
     <LeftAction action={leftAction} />
     <RightAction action={rightAction} />
@@ -66,6 +66,12 @@ Actions.propTypes = {
     icon: PropTypes.string.isRequired,
   }),
 }
+
+Actions = branch(
+  ({ leftAction, rightAction }) => leftAction == null && rightAction == null,
+  renderNothing,
+)(Actions)
+
 
 const Card = ({ children, ...actions }) => (
   <div className={`card ${styles.card}`}>
