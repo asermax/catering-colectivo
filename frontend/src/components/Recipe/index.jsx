@@ -4,23 +4,23 @@ import Card from 'components/Card'
 import VerticalCenteredContent from 'components/VerticalCenteredContent'
 import styles from './styles.scss'
 
-const Recipe = (props) => (
+const Recipe = ({ ingredient, description, quantity, unit, proportion, onEdit, onDelete }) => (
   <Card
-    leftAction={{ icon: 'pencil', callback: props.onEdit }}
-    rightAction={{ icon: 'trash', callback: props.onDelete }}
+    leftAction={{ icon: 'pencil', callback: onEdit }}
+    rightAction={{ icon: 'trash', callback: onDelete }}
   >
     <div className={styles.recipeContent}>
       <h1 className="title">
-        {props.ingredient}
+        {ingredient}
       </h1>
       <h2 className="subtitle">
-        {props.description}
+        {description}
       </h2>
       <VerticalCenteredContent className={styles.recipeProportion}>
         <div className="notification has-text-centered">
-          {props.quantity} {props.unit}
+          {quantity} {unit}
           <span className={styles.perKeyword}>para</span>
-          {props.proportion} personas
+          {proportion} personas
         </div>
       </VerticalCenteredContent>
     </div>
