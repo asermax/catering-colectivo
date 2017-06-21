@@ -4299,7 +4299,7 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.7, prop-types@^15.x, prop-types@~15.5.7:
+prop-types@15.5.10, prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.7, prop-types@^15.x, prop-types@~15.5.7:
   version "15.5.10"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.5.10.tgz#2797dfc3126182e3a95e3dfbb2e893ddd7456154"
   dependencies:
@@ -4537,13 +4537,15 @@ reduce-function-call@^1.0.1:
   dependencies:
     balanced-match "^0.4.2"
 
-redux-first-router-link@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/redux-first-router-link/-/redux-first-router-link-1.0.2.tgz#1174d2fec72d08d20e94a686b5a1fd1335891608"
+redux-first-router-link@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/redux-first-router-link/-/redux-first-router-link-1.0.3.tgz#8b42426c773f37a5491613e1e8fddeb2eef777b0"
+  dependencies:
+    prop-types "15.5.10"
 
-redux-first-router@^1.4.8:
-  version "1.4.8"
-  resolved "https://registry.yarnpkg.com/redux-first-router/-/redux-first-router-1.4.8.tgz#1e5e4b13da637099cf2a8fc446b26b297bc171e9"
+redux-first-router@^1.4.16:
+  version "1.4.16"
+  resolved "https://registry.yarnpkg.com/redux-first-router/-/redux-first-router-1.4.16.tgz#f11104acd88fb07c66c7452de965c72a898476f3"
   dependencies:
     path-to-regexp "^1.7.0"
 
