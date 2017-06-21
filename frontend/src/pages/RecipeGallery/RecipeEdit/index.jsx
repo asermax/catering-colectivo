@@ -1,76 +1,44 @@
-import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { getRecipe } from 'data/recipe/selectors'
-import { editRecipe } from 'data/recipe/actions'
+import { compose, withProps, branch, flattenProp, renderComponent } from 'recompose'
+import * as routes from 'pages/routes'
+import { getRecipe, getEditingId, getEditingRecipe } from 'data/recipe/selectors'
+import { deleteRecipe, changeEditingRecipe, editRecipe } from 'data/recipe/actions'
+import Recipe from 'components/Recipe'
 import EditableRecipe from 'components/EditableRecipe'
 
-class RecipeEdit extends Component {
-  constructor(props) {
-    super(props)
-    const recipe = props.recipe
-    this.state = {
-      ingredient: recipe != null ? recipe.ingredient : null,
-      description: recipe != null ? recipe.description : null,
-      quantity: recipe != null ? recipe.quantity : null,
-      unit: recipe != null ? recipe.unit : null,
-      proportion: recipe != null ? recipe.proportion : null,
-    }
-  }
+const mapStateToProps = (state, ownProps) => ({
+  recipe: getRecipe(state, ownProps.recipeId),
+  editingId: getEditingId(state),
+  editingRecipe: getEditingRecipe(state),
+})
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.recipe !== this.props.recipe) {
-      const recipe = nextProps.recipe
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  onDelete: () => dispatch(deleteRecipe(ownProps.recipeId)),
+  onEdit: () => dispatch(routes.goTo(routes.RECIPE_EDIT, { id: ownProps.recipeId })),
+  onSave: (id, recipe) => dispatch(editRecipe(id, recipe)),
+  onChange: (changes) => dispatch(changeEditingRecipe(changes)),
+  onCancel: () => dispatch(routes.goTo(routes.RECIPE_GALLERY)),
+})
 
-      this.setState({
-        ingredient: recipe.ingredient,
-        description: recipe.description,
-        quantity: recipe.quantity,
-        unit: recipe.unit,
-        proportion: recipe.proportion,
-      })
-    }
-  }
-
-  handleSave() {
-    this.props.editRecipe(
-      this.props.recipeId,
-      {
-        ...this.state,
-      }
-    )
-    this.props.onFinish()
-  }
-
-  render() {
-    return (
-      <EditableRecipe
-        ingredient={this.state.ingredient}
-        description={this.state.description}
-        quantity={this.state.quantity}
-        unit={this.state.unit}
-        proportion={this.state.proportion}
-        onChange={(change) => this.setState(change)}
-        onSave={() => this.handleSave()}
-        onCancel={() => this.props.onFinish()}
-      />
-    )
-  }
-}
+const RecipeEdit = compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  withProps(({ recipeId, recipe, editingId, editingRecipe, onSave, onCancel }) => ({
+    recipe: recipeId === editingId ? editingRecipe : recipe,
+    onSave: () => {
+      onSave(editingId, editingRecipe)
+      onCancel()
+    },
+  })),
+  flattenProp('recipe'),
+  branch(
+    ({ recipeId, editingId }) => recipeId !== editingId,
+    renderComponent(Recipe),
+  ),
+)(EditableRecipe)
 
 RecipeEdit.propTypes = {
-  recipe: PropTypes.object,
   recipeId: PropTypes.string.isRequired,
-  editRecipe: PropTypes.func.isRequired,
-  onFinish: PropTypes.func.isRequired,
 }
 
-const mapStateToProps = (state, { recipeId }) => ({
-  recipe: getRecipe(state, recipeId),
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  editRecipe: (id, recipe) => dispatch(editRecipe(id, recipe)),
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(RecipeEdit)
+export default RecipeEdit

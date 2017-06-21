@@ -2,7 +2,7 @@ import { combineReducers } from 'redux'
 import * as routes from 'pages/routes'
 import {
   RECIPE_FETCH_SUCCESS, RECIPE_CREATE_SUCCESS, RECIPE_EDIT_SUCCESS, RECIPE_DELETE_SUCCESS,
-  NEW_RECIPE_CHANGE,
+  NEW_RECIPE_CHANGE, EDIT_RECIPE_CHANGE,
 } from './actions'
 
 const listDefaultState = []
@@ -34,16 +34,6 @@ const list = (state = listDefaultState, action) => {
   }
 }
 
-const editing = (state = null, action) => {
-  if (action.type === routes.RECIPE_EDIT) {
-    return action.payload.id
-  } else if (routes.default[action.type]) {
-    return null
-  } else {
-    return state
-  }
-}
-
 const isAdding = (state = false, action) => {
   if (action.type === routes.RECIPE_ADD) {
     return true
@@ -54,16 +44,18 @@ const isAdding = (state = false, action) => {
   }
 }
 
+const newRecipeDefault = {
+  ingredient: null,
+  description: null,
+  quantity: 1,
+  unit: 'unidad',
+  proportion: 1,
+}
+
 const newRecipe = (state = null, action) => {
   switch(action.type) {
     case routes.RECIPE_ADD:
-      return {
-        ingredient: null,
-        description: null,
-        quantity: 1,
-        unit: 'unidad',
-        proportion: 1,
-      }
+      return newRecipeDefault
     case NEW_RECIPE_CHANGE:
       return {
         ...state,
@@ -83,9 +75,63 @@ const add = combineReducers({
   newRecipe,
 })
 
-export default combineReducers({
+
+const editingId = (state = null, action) => {
+  if (action.type === routes.RECIPE_EDIT) {
+    return action.payload.id
+  } else if (routes.default[action.type]) {
+    return null
+  } else {
+    return state
+  }
+}
+
+const editingRecipe = (state = null, action) => {
+  switch(action.type) {
+    case EDIT_RECIPE_CHANGE:
+      return {
+        ...state,
+        ...action.changes,
+      }
+    default:
+      if (routes.default[action.type]) {
+        return null
+      } else {
+        return state
+      }
+  }
+}
+
+const edit = combineReducers({
+  editingId,
+  editingRecipe,
+})
+
+const childReducers = combineReducers({
   list,
-  editing,
+  edit,
   add,
 })
 
+
+const rootRecipesReducer = (state, action) => {
+  const newState = childReducers(state, action)
+
+  switch(action.type) {
+    case routes.RECIPE_EDIT:
+    case RECIPE_FETCH_SUCCESS: {
+      const editingRecipe = {
+        ...newState.list.find((recipe) => recipe._id === newState.edit.editingId),
+      }
+      delete editingRecipe._id
+      delete editingRecipe.__typename
+      delete editingRecipe.creationDate
+
+      newState.edit.editingRecipe = editingRecipe
+    }
+  }
+
+  return newState
+}
+
+export default rootRecipesReducer
