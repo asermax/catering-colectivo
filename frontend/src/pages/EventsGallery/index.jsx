@@ -1,38 +1,30 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { compose, lifecycle } from 'recompose'
+import classNames from 'classnames'
 import { getEvents } from 'data/event/selectors'
 import { fetchEvents } from 'data/event/actions'
 import Event from 'components/Event'
 import styles from './styles.scss'
 
-class EventsGallery extends Component {
-  componentDidMount() {
-    this.props.fetchEvents()
-  }
-
-  render() {
-    return (
-      <div className={`columns ${styles.eventGallery}`}>
-        {
-          this.props.events.map((event) =>
-            <div
-              className={`column ${styles.eventItem}`}
-              key={event._id}
-            >
-              <Event
-                organization={event.organization}
-                description={event.description}
-                amountPeople={event.amountPeople}
-                date={event.date}
-              />
-            </div>
-          )
-        }
+const EventsGallery = ({ events }) => (
+  <div className={classNames('columns', styles.eventGallery)}>
+    {events.map((event) => (
+      <div
+        className={classNames('column', styles.eventItem)}
+        key={event._id}
+      >
+        <Event
+          organization={event.organization}
+          description={event.description}
+          amountPeople={event.amountPeople}
+          date={event.date}
+        />
       </div>
-    )
-  }
-}
+    ))}
+  </div>
+)
 
 EventsGallery.propTypes = {
   events: PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -47,4 +39,13 @@ const mapDispatchToProps = (dispatch) => ({
   fetchEvents: () => dispatch(fetchEvents()),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(EventsGallery)
+const enhancer = compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  lifecycle({
+    componentDidMount() {
+      this.props.fetchEvents()
+    },
+  }),
+)
+
+export default enhancer(EventsGallery)
