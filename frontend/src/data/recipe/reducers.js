@@ -88,6 +88,8 @@ const editingId = (state = null, action) => {
 
 const editingRecipe = (state = null, action) => {
   switch(action.type) {
+    case routes.RECIPE_EDIT:
+      return {}
     case EDIT_RECIPE_CHANGE:
       return {
         ...state,
@@ -107,31 +109,9 @@ const edit = combineReducers({
   editingRecipe,
 })
 
-const childReducers = combineReducers({
+export default combineReducers({
   list,
   edit,
   add,
 })
 
-
-const rootRecipesReducer = (state, action) => {
-  const newState = childReducers(state, action)
-
-  switch(action.type) {
-    case routes.RECIPE_EDIT:
-    case RECIPE_FETCH_SUCCESS: {
-      const editingRecipe = {
-        ...newState.list.find((recipe) => recipe._id === newState.edit.editingId),
-      }
-      delete editingRecipe._id
-      delete editingRecipe.__typename
-      delete editingRecipe.creationDate
-
-      newState.edit.editingRecipe = editingRecipe
-    }
-  }
-
-  return newState
-}
-
-export default rootRecipesReducer
