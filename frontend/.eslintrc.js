@@ -28,12 +28,12 @@ module.exports = {
           'env': 'apollo',
           'schemaJsonFilepath': path.resolve(__dirname, '..', 'api', 'gql_schema.json')
         }],
-        'semi': ['error', 'never'],
+        'semi': [ 'error', 'never' ],
         'no-trailing-spaces': 'error',
-        'space-before-function-paren': ['error', 'never'],
+        'space-before-function-paren': [ 'error', 'never' ],
         'object-shorthand': 'error',
-        'object-curly-spacing': ['error', 'always'],
-        'array-bracket-spacing': ['error', 'always'],
+        'object-curly-spacing': [ 'error', 'always' ],
+        'array-bracket-spacing': [ 'error', 'always' ],
         'curly': 'error',
         'comma-dangle': ['error', {
           'arrays': 'always-multiline',
@@ -43,5 +43,6 @@ module.exports = {
           'functions': 'always-multiline',
         }],
         'max-len': ['error', 100],
+        'no-unused-vars': [ 'error', { ignoreRestSiblings: true } ],
     },
 }
