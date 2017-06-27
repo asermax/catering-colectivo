@@ -4,8 +4,9 @@ import { connect } from 'react-redux'
 import Link from 'redux-first-router-link'
 import classNames from 'classnames'
 import { compose, mapProps } from 'recompose'
-import { EVENT_GALLERY, RECIPE_GALLERY, RECIPE_EDIT, RECIPE_ADD } from 'pages/routes'
+import { EVENT_GALLERY, EVENT_ADD, RECIPE_GALLERY } from 'data/page/actions'
 import EventsGallery from 'pages/EventsGallery'
+import EventAdd from 'pages/EventAdd'
 import RecipeGallery from 'pages/RecipeGallery'
 
 const App = ({ Page }) => (
@@ -25,7 +26,9 @@ const App = ({ Page }) => (
           <div className="nav-item">
             <Link
               href={{ type: EVENT_GALLERY }}
-              className={classNames('is-tab', { 'is-active': Page === EventsGallery })}
+              className={classNames('is-tab', {
+                'is-active': [ EventsGallery, EventAdd ].includes(Page),
+              })}
             >
               Eventos
             </Link>
@@ -55,13 +58,12 @@ App.propTypes = {
 
 const pages = {
   [EVENT_GALLERY]: EventsGallery,
+  [EVENT_ADD]: EventAdd,
   [RECIPE_GALLERY]: RecipeGallery,
-  [RECIPE_EDIT]: RecipeGallery,
-  [RECIPE_ADD]: RecipeGallery,
 }
 
 const mapStateToProps = (state) => ({
-  page: state.location.type,
+  page: state.page,
 })
 
 const enhancer = compose(

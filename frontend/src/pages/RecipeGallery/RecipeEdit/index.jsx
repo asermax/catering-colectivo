@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { compose, withProps, branch, flattenProp, renderComponent } from 'recompose'
-import * as routes from 'pages/routes'
+import * as routes from 'data/page/actions'
 import { getRecipe, getEditingId, getEditingRecipe } from 'data/recipe/selectors'
 import { deleteRecipe, changeEditingRecipe, editRecipe } from 'data/recipe/actions'
 import Recipe from 'components/Recipe'

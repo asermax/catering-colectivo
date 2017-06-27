@@ -1,16 +1,11 @@
-export const EVENT_GALLERY = 'ROUTE_EVENT_GALLERY'
-export const RECIPE_GALLERY = 'ROUTE_RECIPE_GALLERY'
-export const RECIPE_EDIT = 'ROUTE_RECIPE_EDIT'
-export const RECIPE_ADD = 'ROUTE_RECIPE_ADD'
+import {
+  EVENT_GALLERY, EVENT_ADD, RECIPE_GALLERY, RECIPE_ADD, RECIPE_EDIT,
+} from 'data/page/actions'
 
 export default {
   [EVENT_GALLERY]: '/',
+  [EVENT_ADD]: '/events/add',
   [RECIPE_GALLERY]: '/recipes',
   [RECIPE_ADD]: '/recipes/add',
   [RECIPE_EDIT]: '/recipes/:id',
 }
-
-export const goTo = (type, payload) => ({
-  type,
-  payload,
-})

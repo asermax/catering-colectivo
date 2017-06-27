@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import * as routes from 'pages/routes'
+import * as routes from 'data/page/actions'
 import {
   RECIPE_FETCH_SUCCESS, RECIPE_CREATE_SUCCESS, RECIPE_EDIT_SUCCESS, RECIPE_DELETE_SUCCESS,
   NEW_RECIPE_CHANGE, EDIT_RECIPE_CHANGE,
@@ -37,7 +37,7 @@ const list = (state = listDefaultState, action) => {
 const isAdding = (state = false, action) => {
   if (action.type === routes.RECIPE_ADD) {
     return true
-  } else if (routes.default[action.type]) {
+  } else if (routes.allRoutes.includes(action.type)) {
     return false
   } else {
     return state
@@ -62,7 +62,7 @@ const newRecipe = (state = null, action) => {
         ...action.changes,
       }
     default:
-      if (routes.default[action.type]) {
+      if (routes.allRoutes.includes(action.type)) {
         return null
       } else {
         return state
@@ -79,7 +79,7 @@ const add = combineReducers({
 const editingId = (state = null, action) => {
   if (action.type === routes.RECIPE_EDIT) {
     return action.payload.id
-  } else if (routes.default[action.type]) {
+  } else if (routes.allRoutes.includes(action.type)) {
     return null
   } else {
     return state
@@ -96,7 +96,7 @@ const editingRecipe = (state = null, action) => {
         ...action.changes,
       }
     default:
-      if (routes.default[action.type]) {
+      if (routes.allRoutes.includes(action.type)) {
         return null
       } else {
         return state

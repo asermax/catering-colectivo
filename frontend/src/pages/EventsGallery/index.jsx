@@ -3,13 +3,32 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { compose, lifecycle } from 'recompose'
 import classNames from 'classnames'
+import * as routes from 'data/page/actions'
 import { getEvents } from 'data/event/selectors'
 import { fetchEvents } from 'data/event/actions'
+import VerticalCenteredContent from 'components/VerticalCenteredContent'
 import Event from 'components/Event'
 import styles from './styles.scss'
 
-const EventsGallery = ({ events }) => (
+const EventsGallery = ({ goAdd, events }) => (
   <div className={classNames('columns', styles.eventGallery)}>
+    <div className={classNames('column', styles.eventItem)}>
+      <div
+          className={classNames('card', styles.eventAdd)}
+          onClick={goAdd}
+      >
+        <VerticalCenteredContent className={classNames('card-content', styles.eventAddContent)}>
+          <div className="notification has-text-centered">
+            <div>
+              <span className="icon is-large">
+                <i className="fa fa-plus-circle" />
+              </span>
+            </div>
+            Agregar nuevo evento
+          </div>
+        </VerticalCenteredContent>
+      </div>
+    </div>
     {events.map((event) => (
       <div
         className={classNames('column', styles.eventItem)}
@@ -29,6 +48,7 @@ const EventsGallery = ({ events }) => (
 EventsGallery.propTypes = {
   events: PropTypes.arrayOf(PropTypes.object).isRequired,
   fetchEvents: PropTypes.func.isRequired,
+  goAdd: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state) => ({
@@ -37,6 +57,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   fetchEvents: () => dispatch(fetchEvents()),
+  goAdd: () => dispatch(routes.goTo(routes.EVENT_ADD)),
 })
 
 const enhancer = compose(

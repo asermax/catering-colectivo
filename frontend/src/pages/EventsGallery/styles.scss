@@ -1,6 +1,26 @@
+@import '~bulma/sass/utilities/variables';
+
 .event-gallery {
   flex-wrap: wrap;
 }
+
+.event-add {
+  min-height: 209px;
+  height: 100%;
+  border: thin dashed rgba($black, 0.3);
+  opacity: 0.7;
+  box-shadow: unset;
+  transition: opacity 0.5s;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.event-add-content {
+  height: 100%;
+}
+
 
 .event-item {
   flex-shrink: 0;
