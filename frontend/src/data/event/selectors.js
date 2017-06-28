@@ -1,1 +1,1 @@
-export const getEvents = (state) => state.events.list
+export const getEvents = (state) => state.event.list
