@@ -1,11 +1,11 @@
-/* globals require, module */
+/* globals require */
 var mongoose = require('mongoose')
 
-module.exports = {
+exports = {
   up(next) {
     mongoose.connections[1].db.collection('recipes').updateMany(
       {},
-      { $currentDate: { creationDate: true } }
+      { $currentDate: { creationDate: true } },
     )
     next()
   },
@@ -13,7 +13,7 @@ module.exports = {
   down(next) {
     mongoose.connections[1].db.collection('recipes').updateMany(
       {},
-      { $unset: { creationDate: true } }
+      { $unset: { creationDate: true } },
     )
 
     next()

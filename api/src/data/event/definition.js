@@ -2,8 +2,9 @@ const definition = `
   type EventDetail {
     _id: ID!
     recipe: Recipe!
-    amountPeople: Int!,
-    note: String,
+    amountPeople: Int!
+    note: String
+    creationDate: Date!
   }
 
   type Event {
@@ -12,7 +13,7 @@ const definition = `
     description: String
     date: Date
     amountPeople: Int
-    creationDate: Date
+    creationDate: Date!
     details: [ EventDetail! ]
   }
 `

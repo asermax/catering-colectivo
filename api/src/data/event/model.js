@@ -4,6 +4,7 @@ const EventDetailSchema = mongoose.Schema({
   recipe: { type: mongoose.Schema.Types.ObjectId, ref: 'Recipe', required: true },
   amountPeople: { type: Number, required: true },
   note: String,
+  creationDate: { type: Date, default: Date.now },
 })
 
 const EventSchema = mongoose.Schema({
