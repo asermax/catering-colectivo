@@ -4,8 +4,11 @@ import Event from './model'
 const resolver = {
   root: {
     Query: {
-      events(_, args) {
-        return Event.find(args).exec()
+      events() {
+        return Event.find().exec()
+      },
+      event(_, { id }) {
+        return Event.findOne({ _id: id }).exec()
       },
     },
   },

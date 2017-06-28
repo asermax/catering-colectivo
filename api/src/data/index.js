@@ -7,6 +7,7 @@ const queryDefinition = `
   type Query {
     recipes: [Recipe]
     events: [Event]
+    event(id: ID!): Event
   }
 
   type Mutation {
