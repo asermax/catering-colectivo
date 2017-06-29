@@ -18,7 +18,7 @@ const list = (state = listDefaultState, action) => {
 
       return [
         event,
-        ...state.filter((event) => event._id !== action.event.id),
+        ...state.filter((event) => event._id !== action.event._id),
       ]
     }
     default:
