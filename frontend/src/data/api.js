@@ -1,7 +1,7 @@
 import apollo from './apollo'
 
-async function query(query, fetchPolicy = 'network-only') {
-  const response = await apollo.query({ query, fetchPolicy })
+async function query(query, variables, fetchPolicy = 'network-only') {
+  const response = await apollo.query({ query, variables, fetchPolicy })
 
   return response.data
 }
