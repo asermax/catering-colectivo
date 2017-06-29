@@ -42,7 +42,7 @@ export function configureStore(history, initialState = {}) {
   // hot reload
   if (module.hot) {
     module.hot.accept('./reducers', () => {
-      store.replaceReducer(generateReducer())
+      store.replaceReducer(generateReducer(router.reducer))
     })
 
     module.hot.accept('./sagas', async () => {
