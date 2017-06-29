@@ -1,21 +1,46 @@
-import { EVENT_FETCH_SUCCESS } from './actions'
+import { combineReducers } from 'redux'
+import * as routes from 'data/page/actions'
+import { EVENTS_FETCH_SUCCESS, EVENT_FETCH_SUCCESS } from './actions'
 
-const defaultState = {
-  list: [],
-}
-
-const eventsReducer = (state = defaultState, action) => {
+const listDefaultState = []
+const list = (state = listDefaultState, action) => {
   switch(action.type) {
-    case EVENT_FETCH_SUCCESS:
-      return {
-        ...state,
-        list: [
-          ...action.events,
-        ],
-      }
+    case EVENTS_FETCH_SUCCESS:
+      return [
+        ...action.events,
+      ]
+    case EVENT_FETCH_SUCCESS: {
+      const event = { ...action.event }
+      event.details = event.details.map(({ recipe, ...detail }) => ({
+        ...detail,
+        recipe: recipe._id,
+      }))
+
+      return [
+        event,
+        ...state.filter((event) => event._id !== action.event.id),
+      ]
+    }
     default:
       return state
   }
 }
 
-export default eventsReducer
+const editingId = (state = null, action) => {
+  if (action.type === routes.EVENT_EDIT) {
+    return action.payload.id
+  } else if (routes.allRoutes.includes(action.type)) {
+    return null
+  } else {
+    return state
+  }
+}
+
+const edit = combineReducers({
+  editingId,
+})
+
+export default combineReducers({
+  list,
+  edit,
+})
