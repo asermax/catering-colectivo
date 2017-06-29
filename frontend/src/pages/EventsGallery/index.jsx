@@ -5,12 +5,12 @@ import { compose, lifecycle } from 'recompose'
 import classNames from 'classnames'
 import * as routes from 'data/page/actions'
 import { getEvents } from 'data/event/selectors'
-import { fetchEvents } from 'data/event/actions'
+import { fetchEvents, deleteEvent } from 'data/event/actions'
 import VerticalCenteredContent from 'components/VerticalCenteredContent'
 import Event from 'components/Event'
 import styles from './styles.scss'
 
-const EventsGallery = ({ goAdd, goEdit, events }) => (
+const EventsGallery = ({ events, goAdd, goEdit, deleteEvent }) => (
   <div className={classNames('columns', styles.eventGallery)}>
     <div className={classNames('column', styles.eventItem)}>
       <div
@@ -40,6 +40,7 @@ const EventsGallery = ({ goAdd, goEdit, events }) => (
           amountPeople={event.amountPeople}
           date={event.date}
           onEdit={() => goEdit(event._id)}
+          onDelete={() => deleteEvent(event._id)}
         />
       </div>
     ))}
@@ -51,6 +52,7 @@ EventsGallery.propTypes = {
   fetchEvents: PropTypes.func.isRequired,
   goAdd: PropTypes.func.isRequired,
   goEdit: PropTypes.func.isRequired,
+  deleteEvent: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state) => ({
@@ -61,6 +63,7 @@ const mapDispatchToProps = (dispatch) => ({
   fetchEvents: () => dispatch(fetchEvents()),
   goAdd: () => dispatch(routes.goTo(routes.EVENT_ADD)),
   goEdit: (id) => dispatch(routes.goTo(routes.EVENT_EDIT, { id })),
+  deleteEvent: (id) => dispatch(deleteEvent(id)),
 })
 
 const enhancer = compose(

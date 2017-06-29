@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 import * as routes from 'data/page/actions'
-import { EVENTS_FETCH_SUCCESS, EVENT_FETCH_SUCCESS } from './actions'
+import { EVENTS_FETCH_SUCCESS, EVENT_FETCH_SUCCESS, EVENT_DELETE_SUCCESS } from './actions'
 
 const listDefaultState = []
 const list = (state = listDefaultState, action) => {
@@ -21,6 +21,8 @@ const list = (state = listDefaultState, action) => {
         ...state.filter((event) => event._id !== action.event._id),
       ]
     }
+    case EVENT_DELETE_SUCCESS:
+      return state.filter((event) => event._id !== action.id)
     default:
       return state
   }
