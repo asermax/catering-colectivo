@@ -10,7 +10,7 @@ import VerticalCenteredContent from 'components/VerticalCenteredContent'
 import Event from 'components/Event'
 import styles from './styles.scss'
 
-const EventsGallery = ({ goAdd, events }) => (
+const EventsGallery = ({ goAdd, goEdit, events }) => (
   <div className={classNames('columns', styles.eventGallery)}>
     <div className={classNames('column', styles.eventItem)}>
       <div
@@ -39,6 +39,7 @@ const EventsGallery = ({ goAdd, events }) => (
           description={event.description}
           amountPeople={event.amountPeople}
           date={event.date}
+          onEdit={() => goEdit(event._id)}
         />
       </div>
     ))}
@@ -49,6 +50,7 @@ EventsGallery.propTypes = {
   events: PropTypes.arrayOf(PropTypes.object).isRequired,
   fetchEvents: PropTypes.func.isRequired,
   goAdd: PropTypes.func.isRequired,
+  goEdit: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state) => ({
@@ -58,6 +60,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   fetchEvents: () => dispatch(fetchEvents()),
   goAdd: () => dispatch(routes.goTo(routes.EVENT_ADD)),
+  goEdit: (id) => dispatch(routes.goTo(routes.EVENT_EDIT, { id })),
 })
 
 const enhancer = compose(
