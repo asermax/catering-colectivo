@@ -3,19 +3,19 @@ import Recipe from './model'
 const resolver = {
   root: {
     Query: {
-      recipes(_, args) {
-        return Recipe.find(args).exec()
+      recipes() {
+        return Recipe.find().exec()
       },
     },
     Mutation: {
-      createRecipe(_, args) {
-        return Recipe.create(args.recipe)
+      createRecipe(_, { recipe }) {
+        return Recipe.create(recipe)
       },
-      updateRecipe(_, args) {
-        return Recipe.findOneAndUpdate({ _id: args.id }, args.recipe, { new: true })
+      updateRecipe(_, { id, recipe }) {
+        return Recipe.findOneAndUpdate({ _id: id }, recipe, { new: true })
       },
-      deleteRecipe(_, args) {
-        return Recipe.remove({ _id: args.id })
+      deleteRecipe(_, { id }) {
+        return Recipe.remove({ _id: id })
       },
     },
   },
