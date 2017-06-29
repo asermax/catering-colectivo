@@ -11,6 +11,14 @@ const resolver = {
         return Event.findOne({ _id: id }).exec()
       },
     },
+    Mutation: {
+      createEvent(_, { event }) {
+        return Event.create(event)
+      },
+      deleteEvent(_, { id }) {
+        return Event.remove({ _id: id })
+      },
+    },
   },
   nested: {
     Event: {

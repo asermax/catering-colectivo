@@ -14,6 +14,8 @@ const queryDefinition = `
     createRecipe(recipe: RecipeInput!): Recipe
     updateRecipe(id: ID!, recipe: RecipeInput!): Recipe
     deleteRecipe(id: ID!): Boolean
+    createEvent(event: EventInput!): Event
+    deleteEvent(id: ID!): Boolean
   }
 `
 
@@ -36,6 +38,7 @@ const resolvers = {
   },
   Mutation: {
     ...recipeResolver.root.Mutation,
+    ...eventResolver.root.Mutation,
   },
   ...eventResolver.nested,
 }
