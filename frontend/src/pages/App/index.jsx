@@ -1,8 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import Link from 'redux-first-router-link'
-import classNames from 'classnames'
+import { NavLink } from 'redux-first-router-link'
 import { compose, mapProps } from 'recompose'
 import { EVENT_GALLERY, EVENT_ADD, EVENT_EDIT, RECIPE_GALLERY } from 'data/page/actions'
 import EventsGallery from 'pages/EventsGallery'
@@ -25,22 +24,25 @@ const App = ({ Page }) => (
       <div className="container">
         <div className="nav-left">
           <div className="nav-item">
-            <Link
-              href={{ type: EVENT_GALLERY }}
-              className={classNames('is-tab', {
-                'is-active': [ EventsGallery, EventAdd, EventEdit ].includes(Page),
-              })}
+            <NavLink
+              to={{ type: EVENT_GALLERY }}
+              className="is-tab"
+              activeClassName="is-active"
+              isActive={(_, location) => (
+                [ EVENT_GALLERY, EVENT_ADD, EVENT_EDIT ].includes(location.type)
+              )}
             >
               Eventos
-            </Link>
+            </NavLink>
           </div>
           <div className="nav-item">
-            <Link
-              href={{ type: RECIPE_GALLERY }}
-              className={classNames('is-tab', { 'is-active': Page === RecipeGallery })}
+            <NavLink
+              to={{ type: RECIPE_GALLERY }}
+              className="is-tab"
+              activeClassName="is-active"
             >
               Recetas
-            </Link>
+            </NavLink>
           </div>
         </div>
       </div>
