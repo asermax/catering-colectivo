@@ -17,7 +17,7 @@
     "body-parser": "^1.x",
     "express": "^4.x",
     "graphql": "^0.x",
-    "graphql-server-express": "^0.x",
+    "graphql-server-express": "^1.x",
     "graphql-tools": "^1.x",
     "mongoose": "^4.x"
   },
@@ -30,7 +30,7 @@
     "babel-register": "^6.x",
     "mongoose-migrate-2": "^0.x",
     "nodemon": "^1.x",
-    "webpack": "^2.x",
+    "webpack": "^3.x",
     "webpack-node-externals": "^1.6.0"
   }
 }
