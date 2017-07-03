@@ -1,9 +1,5 @@
 @import '~bulma/sass/utilities/variables';
 
-.event-gallery {
-  flex-wrap: wrap;
-}
-
 .event-add {
   min-height: 209px;
   height: 100%;
@@ -21,12 +17,7 @@
   height: 100%;
 }
 
-
 .event-item {
-  flex-shrink: 0;
-  flex-grow: 0;
-  min-width: percentage(1/4);
-
   & > * {
     height: 100%;
   }

@@ -11,8 +11,8 @@ import Event from 'components/Event'
 import styles from './styles.scss'
 
 const EventsGallery = ({ events, goAdd, goEdit, deleteEvent }) => (
-  <div className={classNames('columns', styles.eventGallery)}>
-    <div className={classNames('column', styles.eventItem)}>
+  <div className="columns is-multiline">
+    <div className={classNames('column', 'is-one-quarter', styles.eventItem)}>
       <div
           className={classNames('card', styles.eventAdd)}
           onClick={goAdd}
@@ -31,7 +31,7 @@ const EventsGallery = ({ events, goAdd, goEdit, deleteEvent }) => (
     </div>
     {events.map((event) => (
       <div
-        className={classNames('column', styles.eventItem)}
+        className={classNames('column', 'is-one-quarter', styles.eventItem)}
         key={event._id}
       >
         <Event
