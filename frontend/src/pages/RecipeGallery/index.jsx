@@ -10,13 +10,13 @@ import RecipeEdit from './RecipeEdit'
 import styles from './styles.scss'
 
 const RecipeGallery = ({ recipes }) => (
-  <div className={classNames('columns', styles.recipeGallery)}>
-    <div className={classNames('column', styles.recipeItem)}>
+  <div className="columns is-multiline">
+    <div className={classNames('column', 'is-one-quarter', styles.recipeItem)}>
       <RecipeAdd />
     </div>
     {recipes.map((recipe) => (
       <div
-        className={classNames('column', styles.recipeItem)}
+        className={classNames('column', 'is-one-quarter', styles.recipeItem)}
         key={recipe._id}
       >
         <RecipeEdit recipeId={recipe._id} />
