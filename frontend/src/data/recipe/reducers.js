@@ -4,6 +4,7 @@ import {
   RECIPE_FETCH_SUCCESS, RECIPE_CREATE_SUCCESS, RECIPE_EDIT_SUCCESS, RECIPE_DELETE_SUCCESS,
   NEW_RECIPE_CHANGE, EDIT_RECIPE_CHANGE,
 } from './actions'
+import { EVENT_FETCH_SUCCESS } from 'data/event/actions'
 
 const listDefaultState = []
 const list = (state = listDefaultState, action) => {
@@ -29,6 +30,19 @@ const list = (state = listDefaultState, action) => {
       ]
     case RECIPE_DELETE_SUCCESS:
       return state.filter((recipe) => recipe._id !== action.id)
+    case EVENT_FETCH_SUCCESS: {
+      const seen = {}
+
+      return [
+        ...action.event.details
+          .map((detail) => ({ ...detail.recipe }))
+          .filter((recipe) => {
+            const include = seen[recipe._id] == null
+            seen[recipe._id] = true
+            return include
+          }),
+      ]
+    }
     default:
       return state
   }
