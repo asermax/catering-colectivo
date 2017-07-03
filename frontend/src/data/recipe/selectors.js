@@ -1,6 +1,5 @@
 import { createSelector } from 'reselect'
 
-export const identity = (param) => param
 export const getRecipes = (state) => state.recipe.list
 export const getDateOrderedRecipes = createSelector(
   getRecipes,
