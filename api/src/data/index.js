@@ -15,7 +15,11 @@ const queryDefinition = `
     updateRecipe(id: ID!, recipe: RecipeInput!): Recipe
     deleteRecipe(id: ID!): Boolean
     createEvent(event: EventInput!): Event
+    updateEvent(event: EventInput!): Event
     deleteEvent(id: ID!): Boolean
+    createEventDetail(eventId: ID!, eventDetail: EventDetailInput!): EventDetail
+    updateEventDetail(eventId: ID!,id: ID!, eventDetail: EventDetailInput!): EventDetail
+    deleteEventDetail(eventId: ID!,id: ID!): Boolean
   }
 `
 

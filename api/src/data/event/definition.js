@@ -23,6 +23,12 @@ const definition = `
     date: Date
     amountPeople: Int
   }
+
+  input EventDetailInput {
+    recipe: ID!
+    amountPeople: Int!
+    note: String
+  }
 `
 
 export default definition
