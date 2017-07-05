@@ -59,7 +59,14 @@ module.exports = function() {
           exclude: /node_modules/,
           use: [
             'style-loader',
-            'css-loader?modules&camelCase',
+            {
+              loader: 'css-loader',
+              options: {
+                modules: true,
+                camelCase: true,
+                localIdentName: '[local]--[hash:base64]',
+              },
+            },
             'postcss-loader',
             'sass-loader',
           ],
