@@ -11,40 +11,44 @@ import Event from 'components/Event'
 import styles from './styles.scss'
 
 const EventsGallery = ({ events, goAdd, goEdit, deleteEvent }) => (
-  <div className="columns is-multiline">
-    <div className={classNames('column', 'is-one-quarter', styles.eventItem)}>
-      <div
-          className={classNames('card', styles.eventAdd)}
-          onClick={goAdd}
-      >
-        <VerticalCenteredContent className={classNames('card-content', styles.eventAddContent)}>
-          <div className="notification has-text-centered">
-            <div>
-              <span className="icon is-large">
-                <i className="fa fa-plus-circle" />
-              </span>
-            </div>
-            Agregar nuevo evento
+  <section className="section">
+    <div className="container">
+      <div className="columns is-multiline">
+        <div className={classNames('column', 'is-one-quarter', styles.eventItem)}>
+          <div
+              className={classNames('card', styles.eventAdd)}
+              onClick={goAdd}
+          >
+            <VerticalCenteredContent className={classNames('card-content', styles.eventAddContent)}>
+              <div className="notification has-text-centered">
+                <div>
+                  <span className="icon is-large">
+                    <i className="fa fa-plus-circle" />
+                  </span>
+                </div>
+                Agregar nuevo evento
+              </div>
+            </VerticalCenteredContent>
           </div>
-        </VerticalCenteredContent>
+        </div>
+        {events.map((event) => (
+          <div
+            className={classNames('column', 'is-one-quarter', styles.eventItem)}
+            key={event._id}
+          >
+            <Event
+              organization={event.organization}
+              description={event.description}
+              amountPeople={event.amountPeople}
+              date={event.date}
+              onEdit={() => goEdit(event._id)}
+              onDelete={() => deleteEvent(event._id)}
+            />
+          </div>
+        ))}
       </div>
     </div>
-    {events.map((event) => (
-      <div
-        className={classNames('column', 'is-one-quarter', styles.eventItem)}
-        key={event._id}
-      >
-        <Event
-          organization={event.organization}
-          description={event.description}
-          amountPeople={event.amountPeople}
-          date={event.date}
-          onEdit={() => goEdit(event._id)}
-          onDelete={() => deleteEvent(event._id)}
-        />
-      </div>
-    ))}
-  </div>
+  </section>
 )
 
 EventsGallery.propTypes = {

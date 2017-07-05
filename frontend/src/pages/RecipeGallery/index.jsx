@@ -10,19 +10,23 @@ import RecipeEdit from './RecipeEdit'
 import styles from './styles.scss'
 
 const RecipeGallery = ({ recipes }) => (
-  <div className="columns is-multiline">
-    <div className={classNames('column', 'is-one-quarter', styles.recipeItem)}>
-      <RecipeAdd />
-    </div>
-    {recipes.map((recipe) => (
-      <div
-        className={classNames('column', 'is-one-quarter', styles.recipeItem)}
-        key={recipe._id}
-      >
-        <RecipeEdit recipeId={recipe._id} />
+  <section className="section">
+    <div className="container">
+      <div className="columns is-multiline">
+        <div className={classNames('column', 'is-one-quarter', styles.recipeItem)}>
+          <RecipeAdd />
+        </div>
+        {recipes.map((recipe) => (
+          <div
+            className={classNames('column', 'is-one-quarter', styles.recipeItem)}
+            key={recipe._id}
+          >
+            <RecipeEdit recipeId={recipe._id} />
+          </div>
+        ))}
       </div>
-    ))}
-  </div>
+    </div>
+  </section>
 )
 
 RecipeGallery.propTypes = {

@@ -47,11 +47,7 @@ const App = ({ Page }) => (
         </div>
       </div>
     </nav>
-    <section className="section">
-      <div className="container">
-        {Page ? <Page /> : null}
-      </div>
-    </section>
+    {Page ? <Page /> : null}
   </main>
 )
 
