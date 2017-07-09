@@ -46,7 +46,7 @@ const RightAction = compose(
 )(Action)
 
 
-let Actions = ({ hiddenActions, leftAction, rightAction }) => (
+let Actions = ({ hiddenActions = true, leftAction, rightAction }) => (
   <nav className={classNames('level', styles.actions, { [styles.isHidden]: hiddenActions })}>
     <LeftAction action={leftAction} />
     <RightAction action={rightAction} />
@@ -83,7 +83,7 @@ const Card = ({ children, ...actions }) => (
 )
 
 Card.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.node.isRequired,
   hiddenActions: PropTypes.bool,
   leftAction: PropTypes.shape({
     icon: PropTypes.string.isRequired,
@@ -96,10 +96,6 @@ Card.propTypes = {
     disabled: PropTypes.boolean,
   }),
 
-}
-
-Card.defaultProps = {
-  hiddenActions: true,
 }
 
 export default Card
