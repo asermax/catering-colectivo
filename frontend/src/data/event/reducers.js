@@ -29,17 +29,28 @@ const list = (state = listDefaultState, action) => {
 }
 
 const editingId = (state = null, action) => {
-  if (action.type === routes.EVENT_EDIT) {
-    return action.payload.id
-  } else if (routes.allRoutes.includes(action.type)) {
-    return null
-  } else {
-    return state
+  switch (action.type) {
+    case routes.EVENT_EDIT:
+      return action.payload.id
+    case routes.EVENT_DETAIL_EDIT:
+      return action.payload.eventId
+    default:
+      return routes.allRoutes.includes(action.type) ? null : state
+  }
+}
+
+const editingDetailId = (state = null, action) => {
+  switch (action.type) {
+    case routes.EVENT_DETAIL_EDIT:
+      return action.payload.id
+    default:
+      return routes.allRoutes.includes(action.type) ? null : state
   }
 }
 
 const edit = combineReducers({
   editingId,
+  editingDetailId,
 })
 
 export default combineReducers({

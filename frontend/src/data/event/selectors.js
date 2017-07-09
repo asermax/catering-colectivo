@@ -28,3 +28,10 @@ export const getEditingEvent = createSelector(
     return result
   },
 )
+export const getEditingEventDetailId = (state) => state.event.edit.editingDetailId
+export const getEditingEventDetail = createSelector(
+  [ getEditingEvent, getEditingEventDetailId ],
+  (event, detailId) => {
+    return event != null ? event.details.find((detail) => detail._id === detailId) : null
+  },
+)
