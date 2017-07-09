@@ -1,0 +1,12 @@
+.detail-row {
+  .detail-action {
+    height: inherit;
+    visibility: hidden;
+  }
+
+  &:hover {
+    .detail-action {
+      visibility: visible;
+    }
+  }
+}
