@@ -6,8 +6,8 @@ import VerticalCenteredContent from 'components/VerticalCenteredContent'
 import EditableEventDetail from 'components/EditableEventDetail'
 import { searchRecipes } from 'data/recipe/actions'
 import { getRecipes } from 'data/recipe/selectors'
-import { changeEditingEventDetail } from 'data/event/actions'
-import { getEditingId, getEditingEventDetail } from 'data/event/selectors'
+import { changeEditingEventDetail, editEventDetail } from 'data/event/actions'
+import { getEditingId, getEditingEventDetailId, getEditingEventDetail } from 'data/event/selectors'
 
 const Placeholder = () => (
   <div className="card">
@@ -26,6 +26,7 @@ const Placeholder = () => (
 
 const mapStateToProps = (state) => ({
   editingId: getEditingId(state),
+  editingEventDetailId: getEditingEventDetailId(state),
   editingEventDetail: getEditingEventDetail(state),
   recipes: getRecipes(state),
 })
@@ -33,7 +34,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   searchRecipes: (searchTerm) => dispatch(searchRecipes(searchTerm)),
   onChange: (changes) => dispatch(changeEditingEventDetail(changes)),
-  onSave: () => console.log('not implemented yet'),
+  onSave: (eventId, id, eventDetail) => dispatch(editEventDetail(eventId, id, eventDetail)),
   onCancel: (id) => dispatch(routes.goTo(routes.EVENT_EDIT, { id })),
 })
 
@@ -43,11 +44,18 @@ const enhance = compose(
     ({ editingEventDetail }) => editingEventDetail == null,
     renderComponent(Placeholder),
   ),
-  mapProps(({ onCancel, editingId, ...props }) => ({
+  mapProps(({
+    onCancel, onSave, editingId, editingEventDetailId, editingEventDetail, ...props
+  }) => ({
+    eventDetail: editingEventDetail,
     onCancel: () => onCancel(editingId),
+    onSave: () => {
+      onSave(editingId, editingEventDetailId, editingEventDetail)
+      onCancel(editingId)
+    },
     ...props,
   })),
-  flattenProp('editingEventDetail'),
+  flattenProp('eventDetail'),
 )
 
 export default enhance(EditableEventDetail)
