@@ -4,8 +4,8 @@ import { getRecipes } from 'data/recipe/selectors'
 export const getEvents = (state) => state.event.list
 export const getEditingId = (state) => state.event.edit.editingId
 export const getEditingEvent = createSelector(
-  [ getEvents, getEditingId, getRecipes ],
-  (events, id, recipes) => {
+  [ getEvents, getEditingId ],
+  (events, id) => {
     let result = null
 
     if (id != null) {
@@ -13,25 +13,37 @@ export const getEditingEvent = createSelector(
 
       if (match != null) {
         let { __typename, _id, creationDate, ...event } = match
-
-        // populate recipes
-        result = {
-          ...event,
-          details: event.details == null ? [] : event.details.map((detail) => ({
-            ...detail,
-            recipe: recipes.find((recipe) => recipe._id === detail.recipe),
-          })),
-        }
+        result = event
       }
     }
 
     return result
   },
 )
+export const getEditingEventDetails = createSelector(
+  [ getEditingEvent, getRecipes ],
+  (event, recipes) => event == null || event.details == null ? [] :
+    event.details.map((detail) => ({
+      ...detail,
+      recipe: recipes.find((recipe) => recipe._id === detail.recipe),
+    })),
+)
 export const getEditingEventDetailId = (state) => state.event.edit.editingDetailId
+export const getEditingEventDetailChanges = (state) => state.event.edit.editingDetail
 export const getEditingEventDetail = createSelector(
-  [ getEditingEvent, getEditingEventDetailId ],
-  (event, detailId) => {
-    return event != null ? event.details.find((detail) => detail._id === detailId) : null
+  [ getEditingEvent, getEditingEventDetailId, getEditingEventDetailChanges ],
+  (event, detailId, changes) => {
+    let result = null
+
+    if (detailId != null) {
+      const { __typename, _id, creationDate, ...detail } = event.details
+        .find((detail) => detail._id === detailId)
+      result = {
+        ...detail,
+        ...changes,
+      }
+    }
+
+    return result
   },
 )

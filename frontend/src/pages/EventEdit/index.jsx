@@ -4,12 +4,12 @@ import { connect } from 'react-redux'
 import { compose, lifecycle, branch, renderNothing, mapProps } from 'recompose'
 import * as routes from 'data/page/actions'
 import { fetchEvent } from 'data/event/actions'
-import { getEditingId, getEditingEvent } from 'data/event/selectors'
+import { getEditingId, getEditingEvent, getEditingEventDetails } from 'data/event/selectors'
 import EditableEvent from 'components/EditableEvent'
 import EventDetails from 'components/EventDetails'
 import EventDetailEdit from './EventDetailEdit'
 
-const EventEdit = ({ event, goEdit }) => (
+const EventEdit = ({ event, details, goEdit }) => (
   <div>
     <section className="section">
       <div className="container">
@@ -26,7 +26,7 @@ const EventEdit = ({ event, goEdit }) => (
         <div className="columns">
           <div className="column is-two-thirds">
             <EventDetails
-              details={event.details}
+              details={details}
               onEdit={goEdit}
             />
           </div>
@@ -41,12 +41,14 @@ const EventEdit = ({ event, goEdit }) => (
 
 EventEdit.propTypes = {
   event: PropTypes.object.isRequired,
+  details: PropTypes.arrayOf(PropTypes.object).isRequired,
   goEdit: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state) => ({
   editingId: getEditingId(state),
   event: getEditingEvent(state),
+  details: getEditingEventDetails(state),
 })
 
 const mapDispatchToProps = (dispatch) => ({
