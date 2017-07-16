@@ -21,7 +21,7 @@
     "babel-loader": "^7.x",
     "babel-plugin-transform-object-rest-spread": "^6.x",
     "babel-polyfill": "^6.x",
-    "babel-preset-latest": "^6.x",
+    "babel-preset-env": "^1.6.0",
     "babel-preset-react": "^6.x",
     "bulma": "^0.x",
     "copy-webpack-plugin": "^4.x",
