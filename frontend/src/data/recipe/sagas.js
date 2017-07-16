@@ -1,12 +1,13 @@
+import { delay } from 'redux-saga'
 import { call, put, takeLatest } from 'redux-saga/effects'
 import api from 'data/api'
 import {
-  receiveRecipes, failReceiveRecipes, RECIPE_FETCH_REQUEST,
+  receiveRecipes, failReceiveRecipes, RECIPE_FETCH_REQUEST, RECIPE_SEARCH_REQUEST,
   receiveRecipe, failReceiveRecipe, RECIPE_CREATE_REQUEST,
   updateRecipe, failUpdateRecipe, RECIPE_EDIT_REQUEST,
   removeRecipe, failRemoveRecipe, RECIPE_DELETE_REQUEST,
 } from './actions'
-import { allRecipesQuery } from './queries'
+import { allRecipesQuery, searchRecipesQuery } from './queries'
 import { createRecipeMutation, updateRecipeMutation, deleteRecipeMutation } from './mutations'
 
 function* fetchRecipes() {
@@ -53,12 +54,26 @@ function* deleteRecipe(action) {
   }
 }
 
+function* searchRecipes(action) {
+  yield call(delay, 500)
+
+  try {
+    const { recipes } = yield call(api.query, searchRecipesQuery, {
+      ingredient: action.ingredient,
+    })
+    yield put(receiveRecipes(recipes))
+  } catch(error) {
+    yield put(failReceiveRecipes(error.message))
+  }
+}
+
 function* recipeSaga() {
   yield [
     takeLatest(RECIPE_FETCH_REQUEST, fetchRecipes),
     takeLatest(RECIPE_CREATE_REQUEST, createRecipe),
     takeLatest(RECIPE_EDIT_REQUEST, editRecipe),
     takeLatest(RECIPE_DELETE_REQUEST, deleteRecipe),
+    takeLatest(RECIPE_SEARCH_REQUEST, searchRecipes),
   ]
 }
 

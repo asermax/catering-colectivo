@@ -22,6 +22,7 @@ module.exports = {
     'env': {
       'jest/globals': true,
       'browser': true,
+      'es6': true,
     },
     'rules': {
         'graphql/template-strings': ['error', {

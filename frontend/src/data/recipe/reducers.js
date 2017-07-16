@@ -9,10 +9,13 @@ import { EVENT_FETCH_SUCCESS } from 'data/event/actions'
 const listDefaultState = []
 const list = (state = listDefaultState, action) => {
   switch(action.type) {
-    case RECIPE_FETCH_SUCCESS:
+    case RECIPE_FETCH_SUCCESS: {
+      const newIds = action.recipes.map((recipe) => recipe._id)
       return [
+        ...state.filter((recipe) => !newIds.includes(recipe._id)),
         ...action.recipes,
       ]
+    }
     case RECIPE_CREATE_SUCCESS:
       return [
         {

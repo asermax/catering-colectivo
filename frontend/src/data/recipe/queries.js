@@ -9,3 +9,12 @@ export const allRecipesQuery = gql`
   }
   ${recipeFieldsFragment}
 `
+
+export const searchRecipesQuery = gql`
+  query searchRecipes($ingredient: String!) {
+    recipes(ingredient: $ingredient) {
+      ...recipeFields
+    }
+  }
+  ${recipeFieldsFragment}
+`

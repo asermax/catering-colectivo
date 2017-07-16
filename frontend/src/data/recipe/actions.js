@@ -1,4 +1,5 @@
 export const RECIPE_FETCH_REQUEST = 'RECIPE_FETCH_REQUEST'
+export const RECIPE_SEARCH_REQUEST = 'RECIPE_SEARCH_REQUEST'
 export const RECIPE_FETCH_SUCCESS = 'RECIPE_FETCH_SUCCESS'
 export const RECIPE_FETCH_FAILURE = 'RECIPE_FETCH_FAILURE'
 export const RECIPE_CREATE_REQUEST = 'RECIPE_CREATE_REQUEST'
@@ -15,6 +16,11 @@ export const EDIT_RECIPE_CHANGE = 'EDIT_RECIPE_CHANGE'
 
 export const fetchRecipes = () => ({
   type: RECIPE_FETCH_REQUEST,
+})
+
+export const searchRecipes = (ingredient) => ({
+  type: RECIPE_SEARCH_REQUEST,
+  ingredient,
 })
 
 export const receiveRecipes = (recipes) => ({
