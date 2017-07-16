@@ -27,7 +27,7 @@
     "babel-loader": "^7.x",
     "babel-plugin-transform-object-rest-spread": "^6.x",
     "babel-polyfill": "^6.x",
-    "babel-preset-latest": "^6.x",
+    "babel-preset-env": "^1.6.0",
     "babel-register": "^6.x",
     "mongoose-migrate-2": "^0.x",
     "nodemon": "^1.x",
