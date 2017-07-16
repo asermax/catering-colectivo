@@ -1,12 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { compose, withProps } from 'recompose'
+import { compose, withProps, withHandlers } from 'recompose'
 import Select from 'react-select'
 import { validations } from 'utils'
 import Card from 'components/Card'
 
 const EditableEventDetail = ({
   recipe, amountPeople, note, isValid, recipes, searchRecipes, onChange, onSave, onCancel,
+  handleKeyDown,
 }) => (
   <Card
     hiddenActions={false}
@@ -39,6 +40,7 @@ const EditableEventDetail = ({
           type="text"
           className="input"
           value={note}
+          onKeyDown={handleKeyDown}
           onChange={(event) => (
             validations.str((value) => onChange({ note: value }))(event.target.value)
           )}
@@ -55,6 +57,7 @@ const EditableEventDetail = ({
           type="text"
           className="input"
           value={amountPeople}
+          onKeyDown={handleKeyDown}
           onChange={(event) => (
             validations.int((value) => onChange({ amountPeople: value }))(
               event.target.value, amountPeople, 1,
@@ -79,12 +82,26 @@ EditableEventDetail.propTypes = {
   onChange: PropTypes.func,
   onSave: PropTypes.func,
   onCancel: PropTypes.func,
+  handleKeyDown: PropTypes.func.isRequired,
 }
 
 const enhancer = compose(
   withProps((props) => ({
     isValid: Object.values(props).every((prop) => prop != null),
   })),
+  withHandlers({
+    handleKeyDown: ({ isValid, onSave, onCancel }) => (event) => {
+      if (event.key === 'Enter') {
+        event.preventDefault()
+
+        if (isValid) {
+          onSave()
+        }
+      } else if (event.key === 'Escape') {
+        onCancel()
+      }
+    },
+  }),
 )
 
 export default enhancer(EditableEventDetail)
