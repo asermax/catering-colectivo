@@ -4,9 +4,10 @@ import {
   receiveEvents, failReceiveEvents, EVENTS_FETCH_REQUEST,
   receiveEvent, failReceiveEvent, EVENT_FETCH_REQUEST,
   removeEvent, failRemoveEvent, EVENT_DELETE_REQUEST,
+  updateEventDetail, failUpdateEventDetail, EVENT_DETAIL_EDIT_REQUEST,
 } from './actions'
 import { allEventsQuery, eventQuery } from './queries'
-import { deleteEventMutation } from './mutations'
+import { deleteEventMutation, updateEventDetailMutation } from './mutations'
 
 function* fetchEvents() {
   try {
@@ -40,11 +41,25 @@ function* deleteEvent(action) {
   }
 }
 
+function* editEventDetail(action) {
+  try {
+    const response = yield call(api.mutate, updateEventDetailMutation, {
+      eventId: action.eventId,
+      id: action.id,
+      eventDetail: action.eventDetail ,
+    })
+    yield put(updateEventDetail(action.eventId, action.id, response.eventDetail))
+  } catch(error) {
+    yield put(failUpdateEventDetail(error.message))
+  }
+}
+
 function* eventSaga() {
   yield [
     takeLatest(EVENTS_FETCH_REQUEST, fetchEvents),
     takeLatest(EVENT_FETCH_REQUEST, fetchEvent),
     takeLatest(EVENT_DELETE_REQUEST, deleteEvent),
+    takeLatest(EVENT_DETAIL_EDIT_REQUEST, editEventDetail),
   ]
 }
 
