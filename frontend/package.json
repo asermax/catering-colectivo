@@ -55,6 +55,7 @@
     "react-contenteditable": "^2.x",
     "react-dom": "^15.x",
     "react-redux": "^5.x",
+    "react-select": "^1.0.0-rc.5",
     "recompose": "^0.x",
     "redux": "^3.x",
     "redux-first-router": "^1.x",
