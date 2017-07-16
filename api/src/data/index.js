@@ -5,7 +5,7 @@ import { eventDefinition, eventResolver } from './event'
 
 const queryDefinition = `
   type Query {
-    recipes: [Recipe]
+    recipes(ingredient: String): [Recipe]
     events: [Event]
     event(id: ID!): Event
   }

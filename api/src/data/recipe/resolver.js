@@ -3,8 +3,19 @@ import Recipe from './model'
 const resolver = {
   root: {
     Query: {
-      recipes() {
-        return Recipe.find().exec()
+      recipes(_, { ingredient }) {
+        const query = Recipe.find()
+
+        if (ingredient != null) {
+          // allow searching by name
+          ingredient = ingredient.trim()
+
+          if (ingredient !== '') {
+            query.regex('ingredient', new RegExp(ingredient, 'i'))
+          }
+        }
+
+        return query.exec()
       },
     },
     Mutation: {
