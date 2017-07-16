@@ -64,7 +64,7 @@ const enhancer = compose(
     },
   }),
   branch(
-    ({ event }) => event == null || event.details.length === 0,
+    ({ event }) => event == null,
     renderNothing,
   ),
   mapProps(({ goEdit, editingId, ...props }) => ({
