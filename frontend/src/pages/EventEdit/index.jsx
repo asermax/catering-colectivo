@@ -4,12 +4,14 @@ import { connect } from 'react-redux'
 import { compose, lifecycle, branch, renderNothing, mapProps } from 'recompose'
 import * as routes from 'data/page/actions'
 import { fetchEvent, deleteEventDetail } from 'data/event/actions'
-import { getEditingId, getEditingEvent, getEditingEventDetails } from 'data/event/selectors'
+import {
+  getEditingId, getEditingEvent, getEditingEventDetails, getEditingEventDetailId,
+} from 'data/event/selectors'
 import EditableEvent from 'components/EditableEvent'
 import EventDetails from 'components/EventDetails'
 import EventDetailPlaceholder from './EventDetailPlaceholder'
 
-const EventEdit = ({ event, details, goEdit, deleteEventDetail }) => (
+const EventEdit = ({ event, details, editingEventDetailId, goEdit, deleteEventDetail }) => (
   <div>
     <section className="section">
       <div className="container">
@@ -27,6 +29,7 @@ const EventEdit = ({ event, details, goEdit, deleteEventDetail }) => (
           <div className="column is-two-thirds">
             <EventDetails
               details={details}
+              selectedDetail={editingEventDetailId}
               onEdit={goEdit}
               onDelete={deleteEventDetail}
             />
@@ -43,6 +46,7 @@ const EventEdit = ({ event, details, goEdit, deleteEventDetail }) => (
 EventEdit.propTypes = {
   event: PropTypes.object.isRequired,
   details: PropTypes.arrayOf(PropTypes.object).isRequired,
+  editingEventDetailId: PropTypes.string,
   goEdit: PropTypes.func.isRequired,
   deleteEventDetail: PropTypes.func.isRequired,
 }
@@ -51,6 +55,7 @@ const mapStateToProps = (state) => ({
   editingId: getEditingId(state),
   event: getEditingEvent(state),
   details: getEditingEventDetails(state),
+  editingEventDetailId: getEditingEventDetailId(state),
 })
 
 const mapDispatchToProps = (dispatch) => ({
