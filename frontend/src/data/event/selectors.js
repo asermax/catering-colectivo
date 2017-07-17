@@ -28,6 +28,8 @@ export const getEditingEventDetails = createSelector(
       recipe: recipes.find((recipe) => recipe._id === detail.recipe),
     })),
 )
+export const isAddingEventDetail = (state) => state.event.add.isAddingEventDetail
+export const getNewEventDetail = (state) => state.event.add.newEventDetail
 export const getEditingEventDetailId = (state) => state.event.edit.editingDetailId
 export const getEditingEventDetailChanges = (state) => state.event.edit.editingDetail
 export const getEditingEventDetail = createSelector(

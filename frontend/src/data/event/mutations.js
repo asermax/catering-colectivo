@@ -7,6 +7,18 @@ export const deleteEventMutation = gql`
   }
 `
 
+export const createEventDetailMutation = gql`
+  mutation createEventDetail($eventId: ID!, $eventDetail: EventDetailInput!) {
+    eventDetail: createEventDetail(eventId: $eventId, eventDetail: $eventDetail) {
+      ...eventDetailFields
+      recipe {
+        _id
+      }
+    }
+  }
+  ${eventDetailFieldsFragment}
+`
+
 export const updateEventDetailMutation = gql`
   mutation updateEventDetail($eventId: ID!, $id: ID!, $eventDetail: EventDetailInput!) {
     eventDetail: updateEventDetail(eventId: $eventId, id: $id, eventDetail: $eventDetail) {
