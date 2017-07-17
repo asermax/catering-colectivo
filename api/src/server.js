@@ -1,5 +1,4 @@
-/* globals Promise */
-
+import 'babel-polyfill'
 import mongoose from 'mongoose'
 import express from 'express'
 import bodyParser from 'body-parser'
