@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { compose, withProps, withHandlers } from 'recompose'
 import Select from 'react-select'
-import { validations } from 'utils'
+import { coalesce, validations } from 'utils'
 import Card from 'components/Card'
 
 const EditableEventDetail = ({
@@ -39,7 +39,7 @@ const EditableEventDetail = ({
         <input
           type="text"
           className="input"
-          value={note}
+          value={coalesce(note, '')}
           onKeyDown={handleKeyDown}
           onChange={(event) => (
             validations.str((value) => onChange({ note: value }))(event.target.value)
@@ -86,8 +86,8 @@ EditableEventDetail.propTypes = {
 }
 
 const enhancer = compose(
-  withProps((props) => ({
-    isValid: Object.values(props).every((prop) => prop != null),
+  withProps(({ recipe, amountPeople }) => ({
+    isValid: recipe != null && amountPeople > 0,
   })),
   withHandlers({
     handleKeyDown: ({ isValid, onSave, onCancel }) => (event) => {
