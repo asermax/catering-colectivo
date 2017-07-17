@@ -13,6 +13,7 @@
     "migrate": "MIGRATION_CONFIG_PATH=./migrations/config.js mongoose-migrate-2"
   },
   "dependencies": {
+    "babel-polyfill": "^6.x",
     "body-parser": "^1.x",
     "eslint": "^4.2.0",
     "express": "^4.x",
@@ -26,7 +27,6 @@
     "babel-core": "^6.x",
     "babel-loader": "^7.x",
     "babel-plugin-transform-object-rest-spread": "^6.x",
-    "babel-polyfill": "^6.x",
     "babel-preset-env": "^1.6.0",
     "babel-register": "^6.x",
     "mongoose-migrate-2": "^0.x",
