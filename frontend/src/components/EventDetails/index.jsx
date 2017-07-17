@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import classNames from 'classnames'
+import Action from 'components/Action'
 import styles from './styles.scss'
 
-const EditableDetails = ({ details, onEdit }) => (
+const EditableDetails = ({ details, onEdit, onDelete }) => (
   <table className="table">
     <thead>
       <tr>
@@ -44,14 +44,16 @@ const EditableDetails = ({ details, onEdit }) => (
             {detail.recipe.unit}
           </td>
           <td>
-            <button
-              className={classNames('button', 'is-white', 'is-paddingless', styles.detailAction)}
-              onClick={() => onEdit(detail._id)}
-            >
-              <span className="icon is-small">
-                <i className="fa fa-pencil" />
-              </span>
-            </button>
+            <Action
+              className={styles.detailAction}
+              callback={() => onEdit(detail._id)}
+              icon="pencil"
+            />
+            <Action
+              className={styles.detailAction}
+              callback={() => onDelete(detail._id)}
+              icon="trash"
+            />
           </td>
         </tr>
       ))}
@@ -69,6 +71,7 @@ EditableDetails.propTypes = {
     note: PropTypes.string,
   })).isRequired,
   onEdit: PropTypes.func,
+  onDelete: PropTypes.func,
 }
 
 export default EditableDetails

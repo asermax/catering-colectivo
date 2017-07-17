@@ -2,6 +2,10 @@
   .detail-action {
     height: inherit;
     visibility: hidden;
+
+    &:not(:last-child) {
+      margin-right: 10px;
+    }
   }
 
   &:hover {
