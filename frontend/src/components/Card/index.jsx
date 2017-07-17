@@ -4,30 +4,20 @@ import classNames from 'classnames'
 import {
   compose, branch, renderComponent, renderNothing, withProps, flattenProp,
 } from 'recompose'
+import Action from 'components/Action'
 import styles from './styles.scss'
 
-let Action = ({ position, disabled, callback, icon }) => (
+let CardAction = ({ position, ...props }) => (
   <div className={`level-${position}`}>
-    <button
-      className={`level-item button is-white is-paddingless ${styles.action}`}
-      disabled={disabled}
-      onClick={callback}
-    >
-      <span className="icon is-small">
-        <i className={`fa fa-${icon}`} />
-      </span>
-    </button>
+    <Action {...props} />
   </div>
 )
 
-Action.propTypes = {
+CardAction.propTypes = {
   position: PropTypes.string.isRequired,
-  disabled: PropTypes.bool,
-  callback: PropTypes.func.isRequired,
-  icon: PropTypes.string.isRequired,
 }
 
-Action = flattenProp('action')(Action)
+CardAction = flattenProp('action')(CardAction)
 
 const LeftAction = compose(
   branch(
@@ -35,7 +25,7 @@ const LeftAction = compose(
     renderComponent(() => <div className="level-left" />),
   ),
   withProps({ position: 'left' }),
-)(Action)
+)(CardAction)
 
 const RightAction = compose(
   branch(
@@ -43,7 +33,7 @@ const RightAction = compose(
     renderNothing,
   ),
   withProps({ position: 'right' }),
-)(Action)
+)(CardAction)
 
 
 let Actions = ({ hiddenActions = true, leftAction, rightAction }) => (
