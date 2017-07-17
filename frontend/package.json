@@ -20,7 +20,6 @@
     "babel-jest": "^20.x",
     "babel-loader": "^7.x",
     "babel-plugin-transform-object-rest-spread": "^6.x",
-    "babel-polyfill": "^6.x",
     "babel-preset-env": "^1.6.0",
     "babel-preset-react": "^6.x",
     "bulma": "^0.x",
@@ -43,6 +42,7 @@
   },
   "dependencies": {
     "apollo-client": "^1.4.2",
+    "babel-polyfill": "^6.x",
     "classnames": "^2.2.5",
     "es6-promise": "^4.x",
     "font-awesome": "^4.x",
