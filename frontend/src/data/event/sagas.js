@@ -6,10 +6,12 @@ import {
   removeEvent, failRemoveEvent, EVENT_DELETE_REQUEST,
   receiveEventDetail, failReceiveEventDetail, EVENT_DETAIL_CREATE_REQUEST,
   updateEventDetail, failUpdateEventDetail, EVENT_DETAIL_EDIT_REQUEST,
+  removeEventDetail, failRemoveEventDetail, EVENT_DETAIL_DELETE_REQUEST,
 } from './actions'
 import { allEventsQuery, eventQuery } from './queries'
 import {
-  deleteEventMutation, createEventDetailMutation, updateEventDetailMutation ,
+  deleteEventMutation, createEventDetailMutation, updateEventDetailMutation,
+  deleteEventDetailMutation,
 } from './mutations'
 
 function* fetchEvents() {
@@ -69,6 +71,23 @@ function* editEventDetail(action) {
   }
 }
 
+function* deleteEventDetail(action) {
+  try {
+    const response = yield call(api.mutate, deleteEventDetailMutation, {
+      eventId: action.eventId,
+      id: action.id,
+    })
+
+    if (response.deleted) {
+      yield put(removeEventDetail(action.eventId, action.id))
+    } else {
+      yield put(failRemoveEventDetail('The event detail couldn\'t be deleted'))
+    }
+  } catch(error) {
+    yield put(failRemoveEventDetail(error.message))
+  }
+}
+
 function* eventSaga() {
   yield [
     takeLatest(EVENTS_FETCH_REQUEST, fetchEvents),
@@ -76,6 +95,7 @@ function* eventSaga() {
     takeLatest(EVENT_DELETE_REQUEST, deleteEvent),
     takeLatest(EVENT_DETAIL_CREATE_REQUEST, createEventDetail),
     takeLatest(EVENT_DETAIL_EDIT_REQUEST, editEventDetail),
+    takeLatest(EVENT_DETAIL_DELETE_REQUEST, deleteEventDetail),
   ]
 }
 

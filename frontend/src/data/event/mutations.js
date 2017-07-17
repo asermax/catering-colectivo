@@ -30,3 +30,9 @@ export const updateEventDetailMutation = gql`
   }
   ${eventDetailFieldsFragment}
 `
+
+export const deleteEventDetailMutation = gql`
+  mutation deleteEventDetail($eventId: ID!, $id: ID!) {
+    deleted: deleteEventDetail(eventId: $eventId, id: $id)
+  }
+`

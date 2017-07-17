@@ -15,6 +15,9 @@ export const EVENT_DETAIL_EDIT_REQUEST = 'EVENT_DETAIL_EDIT_REQUEST'
 export const EVENT_DETAIL_EDIT_SUCCESS = 'EVENT_DETAIL_EDIT_SUCCESS'
 export const EVENT_DETAIL_EDIT_FAILURE = 'EVENT_DETAIL_EDIT_FAILURE'
 export const EDIT_EVENT_DETAIL_CHANGE = 'EDIT_EVENT_DETAIL_CHANGE'
+export const EVENT_DETAIL_DELETE_REQUEST = 'EVENT_DETAIL_DELETE_REQUEST'
+export const EVENT_DETAIL_DELETE_SUCCESS = 'EVENT_DETAIL_DELETE_SUCCESS'
+export const EVENT_DETAIL_DELETE_FAILURE = 'EVENT_DETAIL_DELETE_FAILURE'
 
 export const fetchEvents = () => ({
   type: EVENTS_FETCH_REQUEST,
@@ -104,4 +107,21 @@ export const failUpdateEventDetail = (message) => ({
 export const changeEditingEventDetail = (changes) => ({
   type: EDIT_EVENT_DETAIL_CHANGE,
   changes,
+})
+
+export const deleteEventDetail = (eventId, id) => ({
+  type: EVENT_DETAIL_DELETE_REQUEST,
+  eventId,
+  id,
+})
+
+export const removeEventDetail = (eventId, id) => ({
+  type: EVENT_DETAIL_DELETE_SUCCESS,
+  eventId,
+  id,
+})
+
+export const failRemoveEventDetail = (message) => ({
+  type: EVENT_DETAIL_DELETE_FAILURE,
+  message,
 })
