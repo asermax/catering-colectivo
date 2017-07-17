@@ -3,9 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { NavLink } from 'redux-first-router-link'
 import { compose, mapProps } from 'recompose'
-import {
-  EVENT_GALLERY, EVENT_ADD, EVENT_EDIT, RECIPE_GALLERY, EVENT_DETAIL_EDIT,
-} from 'data/page/actions'
+import { EVENT_GALLERY, EVENT_ADD, EVENT_EDIT, RECIPE_GALLERY } from 'data/page/actions'
 import EventsGallery from 'pages/EventsGallery'
 import EventAdd from 'pages/EventAdd'
 import EventEdit from 'pages/EventEdit'
@@ -30,9 +28,7 @@ const App = ({ Page }) => (
               to={{ type: EVENT_GALLERY }}
               className="is-tab"
               activeClassName="is-active"
-              isActive={(_, location) => (
-                [ EVENT_GALLERY, EVENT_ADD, EVENT_EDIT, EVENT_DETAIL_EDIT ].includes(location.type)
-              )}
+              isActive={(_, location) => location.type.includes('EVENT')}
             >
               Eventos
             </NavLink>
