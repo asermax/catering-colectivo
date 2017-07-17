@@ -3,9 +3,11 @@ import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import styles from './styles.scss'
 
-let Action = ({ disabled, callback, icon }) => (
+let Action = ({ disabled, callback, icon, className }) => (
   <button
-    className={classNames('level-item', 'button', 'is-white', 'is-paddingless', styles.action)}
+    className={classNames(
+      'level-item', 'button', 'is-white', 'is-paddingless', styles.action, className,
+    )}
     disabled={disabled}
     onClick={callback}
   >
@@ -19,6 +21,7 @@ Action.propTypes = {
   disabled: PropTypes.bool,
   callback: PropTypes.func.isRequired,
   icon: PropTypes.string.isRequired,
+  className: PropTypes.string,
 }
 
 export default Action
