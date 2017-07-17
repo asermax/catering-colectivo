@@ -4,9 +4,11 @@ services:
     image: node:8.1.2-alpine
     volumes:
       - ./api:/opt/app
-    entrypoint: sh -c "/opt/app/entrypoint.sh install --force && /opt/app/entrypoint.sh build"
+    entrypoint: /opt/app/entrypoint.sh
+    command: build
   frontend:
     image: node:8.1.2-alpine
     volumes:
       - ./frontend:/opt/app
-    entrypoint: sh -c "/opt/app/entrypoint.sh install --force && /opt/app/entrypoint.sh build"
+    entrypoint: /opt/app/entrypoint.sh
+    command: build
