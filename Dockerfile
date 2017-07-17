@@ -1,4 +1,4 @@
-FROM nginx:1.12-alpine
+FROM nginx:1.13.1-alpine
 MAINTAINER Agustin Carrasco <asermax@gmail.com>
 
 ADD frontend/dist /usr/share/nginx/html
