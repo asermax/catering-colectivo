@@ -9,7 +9,7 @@ import styles from './styles.scss'
 
 let CardAction = ({ position, ...props }) => (
   <div className={`level-${position}`}>
-    <Action {...props} />
+    <Action className="level-item" {...props} />
   </div>
 )
 
