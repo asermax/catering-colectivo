@@ -7,7 +7,7 @@ import { fetchEvent } from 'data/event/actions'
 import { getEditingId, getEditingEvent, getEditingEventDetails } from 'data/event/selectors'
 import EditableEvent from 'components/EditableEvent'
 import EventDetails from 'components/EventDetails'
-import EventDetailEdit from './EventDetailEdit'
+import EventDetailPlaceholder from './EventDetailPlaceholder'
 
 const EventEdit = ({ event, details, goEdit }) => (
   <div>
@@ -31,7 +31,7 @@ const EventEdit = ({ event, details, goEdit }) => (
             />
           </div>
           <div className="column is-one-third">
-            <EventDetailEdit />
+            <EventDetailPlaceholder />
           </div>
         </div>
       </div>
