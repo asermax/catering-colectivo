@@ -4,9 +4,10 @@ MAINTAINER Agustin Carrasco <asermax@gmail.com>
 WORKDIR /opt/app
 ADD dist ./dist
 ADD index.js package.json yarn.lock ./
+ADD entrypoint.sh ./
 
 VOLUME /opt/app/node_modules
 
 ENV NODE_ENV production
-ENTRYPOINT ["entrypoint"]
+ENTRYPOINT ["/opt/app/entrypoint.sh"]
 CMD ["start-prod"]
