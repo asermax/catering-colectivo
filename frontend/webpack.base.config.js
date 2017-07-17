@@ -1,25 +1,24 @@
-/* globals require, module, __dirname */
+/* eslint-env node */
 const webpack = require('webpack')
-const path = require('path')
+const { resolve } = require('path')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
   entry: {
     app: [
-      'babel-polyfill',
       'react-hot-loader/patch',
       'bulma/bulma.sass',
       'font-awesome/scss/font-awesome.scss',
       'react-select/dist/react-select.css',
-      './src/patches/react-contenteditable-patch.js',
-      './src/patches/moment-locale-patch.js',
-      './src/index.jsx',
+      resolve(__dirname, 'src', 'patches', 'react-contenteditable-patch.js'),
+      resolve(__dirname, 'src', 'patches', 'moment-locale-patch.js'),
+      resolve(__dirname, 'src', 'index.jsx'),
     ],
   },
 
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
+    path: resolve(__dirname, 'dist'),
     publicPath: '/',
   },
 
@@ -72,7 +71,7 @@ module.exports = {
 
   resolve: {
     modules: [
-      path.resolve(__dirname, 'src'),
+      resolve(__dirname, 'src'),
       'node_modules',
     ],
     extensions: [ '.js', '.jsx' ],
@@ -88,7 +87,7 @@ module.exports = {
       },
     }),
     new CopyWebpackPlugin([
-      { from: path.resolve(__dirname, 'src', 'index.html') },
+      { from: resolve(__dirname, 'src', 'index.html') },
     ]),
   ],
 }
