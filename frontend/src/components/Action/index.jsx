@@ -5,9 +5,7 @@ import styles from './styles.scss'
 
 let Action = ({ disabled, callback, icon, className }) => (
   <button
-    className={classNames(
-      'level-item', 'button', 'is-white', 'is-paddingless', styles.action, className,
-    )}
+    className={classNames('button', 'is-white', 'is-paddingless', styles.action, className)}
     disabled={disabled}
     onClick={callback}
   >
