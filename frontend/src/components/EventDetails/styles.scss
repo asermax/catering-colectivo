@@ -1,7 +1,10 @@
+@import '~bulma/sass/utilities/variables';
+
 .detail-row {
   .detail-action {
     height: inherit;
     visibility: hidden;
+    background-color: transparent;
 
     &:not(:last-child) {
       margin-right: 10px;
@@ -11,6 +14,12 @@
   &:hover {
     .detail-action {
       visibility: visible;
+    }
+  }
+
+  &:global(.is-selected) {
+    .detail-action:hover {
+      color: $white;
     }
   }
 }

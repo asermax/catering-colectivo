@@ -1,9 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import classNames from 'classnames'
 import Action from 'components/Action'
 import styles from './styles.scss'
 
-const EditableDetails = ({ details, onEdit, onDelete }) => (
+const EditableDetails = ({ details, selectedDetail, onEdit, onDelete }) => (
   <table className="table">
     <thead>
       <tr>
@@ -28,7 +29,11 @@ const EditableDetails = ({ details, onEdit, onDelete }) => (
     </thead>
     <tbody>
       {details.map((detail) => (
-        <tr key={detail._id} className={styles.detailRow}>
+        <tr
+          key={detail._id}
+          className={classNames(styles.detailRow, {
+            'is-selected': detail._id === selectedDetail,
+          })}>
           <td>
             {detail.recipe.ingredient}
           </td>
@@ -70,6 +75,7 @@ EditableDetails.propTypes = {
     amountPeople: PropTypes.number.isRequired,
     note: PropTypes.string,
   })).isRequired,
+  selectedDetail: PropTypes.string,
   onEdit: PropTypes.func,
   onDelete: PropTypes.func,
 }
