@@ -3,13 +3,13 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { compose, lifecycle, branch, renderNothing, mapProps } from 'recompose'
 import * as routes from 'data/page/actions'
-import { fetchEvent } from 'data/event/actions'
+import { fetchEvent, deleteEventDetail } from 'data/event/actions'
 import { getEditingId, getEditingEvent, getEditingEventDetails } from 'data/event/selectors'
 import EditableEvent from 'components/EditableEvent'
 import EventDetails from 'components/EventDetails'
 import EventDetailPlaceholder from './EventDetailPlaceholder'
 
-const EventEdit = ({ event, details, goEdit }) => (
+const EventEdit = ({ event, details, goEdit, deleteEventDetail }) => (
   <div>
     <section className="section">
       <div className="container">
@@ -28,6 +28,7 @@ const EventEdit = ({ event, details, goEdit }) => (
             <EventDetails
               details={details}
               onEdit={goEdit}
+              onDelete={deleteEventDetail}
             />
           </div>
           <div className="column is-one-third">
@@ -43,6 +44,7 @@ EventEdit.propTypes = {
   event: PropTypes.object.isRequired,
   details: PropTypes.arrayOf(PropTypes.object).isRequired,
   goEdit: PropTypes.func.isRequired,
+  deleteEventDetail: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state) => ({
@@ -54,6 +56,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   fetchEvent: (id) => dispatch(fetchEvent(id)),
   goEdit: (eventId, id) => dispatch(routes.goTo(routes.EVENT_DETAIL_EDIT, { eventId, id })),
+  deleteEventDetail: (eventId, id) => dispatch(deleteEventDetail(eventId, id)),
 })
 
 const enhancer = compose(
@@ -67,9 +70,10 @@ const enhancer = compose(
     ({ event }) => event == null,
     renderNothing,
   ),
-  mapProps(({ goEdit, editingId, ...props }) => ({
-    goEdit: (id) => (goEdit(editingId, id)),
+  mapProps(({ goEdit, deleteEventDetail, editingId, ...props }) => ({
     ...props,
+    goEdit: (id) => goEdit(editingId, id),
+    deleteEventDetail: (id) => deleteEventDetail(editingId, id),
   })),
 )
 
